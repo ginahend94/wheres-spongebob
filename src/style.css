@@ -1,0 +1,34 @@
+@font-face {
+  font-family: 'Spongebob';
+  src: url('./assets/Some\ Time\ Later.otf');
+}
+@font-face {
+  font-family: 'Mels';
+  src: url('./assets/Mels-Regular.otf');
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Mels';
+  src: url('./assets/Mels-Italic.otf');
+  font-style: italic;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-width:100vw;
+  height:100vh;
+  font-family: Mels;
+}
+
+header {
+  font-family: Spongebob;
+}
+
+main {
+  flex:auto;
+}
+
+body > * {
+  border: solid 1px red;
+}
