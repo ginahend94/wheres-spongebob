@@ -41,10 +41,28 @@ const save = (name, data) => {
   localStorage.setItem(name, JSON.stringify(data));
 };
 
+const importImages = (folder) => {
+  const imgObj = {};
+  const importAll = (r) => {
+    const keys = r.keys();
+    const urls = r.keys().map(r);
+    return urls.forEach((url, i) => {
+      const key = keys[i].replace(/.\/|.jpg|.png/g, '');
+      imgObj[key] = url;
+    });
+  };
+  importAll(
+    // import all images
+    require.context(folder, false, /\.jpg$|\.png$/)
+  );
+  return imgObj;
+};
+
 export {
   hideElement,
   icon,
   createLink,
   load,
   save,
+  importImages,
 };
