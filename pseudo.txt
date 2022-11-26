@@ -1,0 +1,76 @@
+If you’ll be using Firebase, this is a good time to create a new Firebase project for this app, and link to the necessary scripts at the bottom of your HTML page.
+Build the front end functionality without actually using any calls to the back end yet. Specifically, that means creating the JavaScript functionality which pops the targeting box and dropdown menu on the screen when the user clicks on the photo and removes it when the user clicks away.
+Now hook up the functionality for validating with your back end whether the user has clicked in the right place for that character.
+Tie it into your front end so you can seamlessly select characters, validate them, and place the appropriate markers on the map if the selection was correct.
+Add in the ability to time the user from when they first load the page and then display their “score” (time) when they successfully identify all characters. Create a popup that asks them to enter their name for the high scores table if they have earned it.
+Play with it!
+Push your solution to GitHub, Heroku, and/or Firebase Hosting and submit it below. This is a serious project, congratulations!
+
+
+Your Task
+
+Here, you’ll build an app that feels a whole lot like a photo tagging app. You’ll start with a large photograph 
+which contains several elements the user is meant to find, e.g. Waldo, The Wizard, Wilma etc… name your own if 
+you’d like to use your own photos. The user will make selections for each character and they will get feedback 
+on whether they are correct or not.
+
+To start with, you’ll need to choose a photo and identify where exactly each person is to start with and save 
+that to your database. When the user clicks the photo, it should place a targeting box around the portion of 
+the photo where the user has clicked. That box should contain a list of possible characters.
+
+When the user selects one of these characters, you should check with your Backend to see if that character is 
+actually within the targeting box. Provide the user with appropriate feedback (e.g. if wrong, an error message). 
+If correct, place a marker on the photo in the character’s location. In either case, remove the targeting box 
+until the user clicks again.
+
+Keep track of how long it takes between when the photo is first loaded and when the user finally identifies all 
+characters (do this on the server side otherwise the user could hack their score). Note: do this if you’re 
+using rails as your backend. Firebase users don’t need to add a timer on the backend, instead add one on the 
+front end. Once a round is complete, ask the user for his/her name and record that time. This will get a bit 
+tricky since you’ll have anonymous users you need to keep track of!
+
+// BACKEND
+// TODO - Set up database
+// TODO - Select characters
+// TODO - Add character locations to database
+
+// FRONTEND
+// TODO - Set up HTML
+// TODO - Make areas clickable
+
+// PSEUDOCODE
+// Click start
+// Timer starts
+// * Hover over area
+// Area zooms
+// Click area
+// Box appears around targeted point
+// List of characters appears
+// Hover over character name
+// Character name is highlighted
+// Click character name
+//
+// IF CORRECT
+// Marker appears around character
+// Character is checked off from list
+// Small positive feedback (ding, checkmark, etc.)
+//
+// IF INCORRECT
+// Toaster notification ("oops, CHARACTER isn't there!")
+//
+// List disappears
+// Continue from * until all characters have been found
+//
+// WHEN ALL CHARACTERS FOUND:
+// Stop timer
+// Show "congrats" message
+//
+// Compare score to top ten scores
+//
+// IF THERE ARE SCORES and SCORE IS LOWER THAN HIGHEST HIGH SCORE
+// Show "high score" box
+// Enter three initials
+// Click "submit"
+// Save initials and score to high score list
+// Update high score list on screen
+// Show thanks for playing screen w/share button
