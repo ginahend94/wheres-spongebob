@@ -74,3 +74,15 @@ tricky since you’ll have anonymous users you need to keep track of!
 // Save initials and score to high score list
 // Update high score list on screen
 // Show thanks for playing screen w/share button
+
+// CHARACTERS
+mindy 
+squilliam 
+bubble bass 
+mama krabs 
+mermaid man 
+kevin 
+fred 
+old man walker 
+perch perkins 
+spongebob

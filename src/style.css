@@ -1,15 +1,15 @@
 @font-face {
   font-family: 'Spongebob';
-  src: url('./assets/Some\ Time\ Later.otf');
+  src: url('./assets/fonts/Some\ Time\ Later.otf');
 }
 @font-face {
   font-family: 'Mels';
-  src: url('./assets/Mels-Regular.otf');
+  src: url('./assets/fonts/Mels-Regular.otf');
   font-style: normal;
 }
 @font-face {
   font-family: 'Mels';
-  src: url('./assets/Mels-Italic.otf');
+  src: url('./assets/fonts/Mels-Italic.otf');
   font-style: italic;
 }
 
