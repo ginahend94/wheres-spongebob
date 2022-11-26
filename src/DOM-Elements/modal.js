@@ -1,12 +1,14 @@
 export default (() => {
-  const container = document.createElement('dialog');
+  const dialog = document.createElement('dialog');
+  dialog.classList.add('modal');
   const close = document.createElement('button');
+  close.textContent = 'Close';
   const title = document.createElement('h2');
   const body = document.createElement('div');
 
-  close.addEventListener('click', () => container.close());
+  close.addEventListener('click', () => dialog.close());
 
-  container.append(
+  dialog.append(
     close,
     title,
     body
@@ -14,10 +16,10 @@ export default (() => {
 
   const setTitle = (text) => (title.textContent = text);
   const setText = (text) => (body.innerHTML = text);
-  const open = () => container.showModal();
+  const open = () => dialog.showModal();
 
   return {
-    container,
+    dialog,
     setTitle,
     setText,
     open,

@@ -9,6 +9,6 @@ export default () => {
     header,
     main,
     footer,
-    modal.container,
+    modal.dialog,
   );
 };
