@@ -29,11 +29,18 @@ export default (() => {
     const cap = document.createElement('figcaption');
     img.src = characterSrcs[key];
     img.classList.add(key.toLowerCase(), 'character');
+    img.setAttribute('data-found', false);
     cap.textContent = key.replace(/-/g, ' ');
     fig.append(img, cap);
     return fig;
   });
-  imgs.forEach((a) => characters.append(a));
+  // Later, cycle through characters
+  // imgs.forEach((a) => characters.append(a));
+  characters.append(
+    imgs.find((a) => a.querySelector('.old-man-walker')),
+    imgs.find((a) => a.querySelector('.mama-krabs')),
+    imgs.find((a) => a.querySelector('.bubble-bass')),
+  );
 
   title.textContent = 'Where\'s SpongeBob?';
   about.textContent = 'About';

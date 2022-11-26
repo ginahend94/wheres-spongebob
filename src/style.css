@@ -13,35 +13,71 @@
   font-style: italic;
 }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --blue:rgb(0, 162, 255);
+}
+
 body {
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-width:100vw;
   height:100vh;
   font-family: Mels;
+  background-color: var(--blue);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding:20px;
+  align-items: center; 
+  background: rgb(0,162,255);
+  background: linear-gradient(357deg, rgba(0,162,255,1) 0%, rgb(125, 209, 240) 100%); 
+  width: min(1000px, 100%);
 }
 
 header h1 {
+  font-size: 2.5rem;
   font-family: Spongebob;
+  color: rgb(255, 255, 0);
+  text-shadow: 3px 3px rgba(0,0,0,1);
 }
 
 .characters {
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   gap:20px;
   padding: 10px;
+  /* border:solid 1px; */
 }
 .characters figure {
   text-align: center;
+  font-size: .8rem;
 }
 .character {
-  height:100px;
+  height:80px;
+  transition: .2s;
+}
+.character:hover {
+  transform: scale(150%);
+  filter: drop-shadow(1px 1px 10px white);
 }
 
 main {
   flex:auto;
+  width: 100%;
+  /* background-image: url('./assets/images/background.jpg'); */
 }
 
-body > * {
+/* body > * {
   border: solid 1px red;
+} */
+
+footer {
+  width: min(1000px, 100%);
 }
