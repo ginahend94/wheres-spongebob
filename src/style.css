@@ -71,6 +71,19 @@ header h1 {
   transform: scale(150%);
 }
 
+.timer {
+  display: flex;
+  font-family: Spongebob;
+  font-size: 1.5rem;
+  border: solid 1px;
+  padding: 5px;
+  text-align: center;
+}
+.timer span {
+  display: inline-block;
+  width:2.5ch;
+}
+
 main {
   flex:auto;
   width: 100%;
