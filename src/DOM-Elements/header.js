@@ -1,4 +1,5 @@
 import modal from './modal';
+import { timer } from '../functions/game';
 
 const importImages = () => {
   const imgObj = {};
@@ -60,6 +61,7 @@ export default (() => {
     title,
     // about,
     characters,
+    timer.container,
   );
 
   return container;
