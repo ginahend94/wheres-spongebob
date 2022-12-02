@@ -46,10 +46,15 @@ const timer = (() => {
     setTimeDisplay('00', '00', '000');
   };
 
+  const stopTimer = () => {
+    clearInterval(int);
+  };
+
   return {
     container,
     start,
     reset: resetTimer,
+    stop: stopTimer,
   };
 })();
 
