@@ -108,7 +108,7 @@ main img {
 .bubble {
   width:100px;
   height:100px;
-  border: solid 3px var(--white);
+  border: solid 3px rgba(var(--rgb-white), .8);
   border-radius: 50%;
   position: absolute;
   top:0;
@@ -128,7 +128,7 @@ main img {
   height:40px;
   bottom:15px;
   left:20px;
-  box-shadow: -10px 2px var(--white);
+  box-shadow: -10px 2px white;
 }
 
 .shine:last-child {
@@ -136,7 +136,7 @@ main img {
   height:25px;
   top:15px;
   right:20px;
-  box-shadow: 10px 2px var(--white);
+  box-shadow: 10px 2px white;
 }
 
 /* body > * {
