@@ -10,10 +10,23 @@ const bubble = (() => {
 })();
 
 const bubbleFollow = (e) => {
+  // if x or y is outside main, return closest, stop updating
+  
   // take in x and y of cursor
-  // divide bubble in half, left is width - x
-  // top is height - x
+  const cursorX = e.pageX;
+  const cursorY = e.pageY;
+  // divide bubble in half
+  const bubbleCenter = 50;
+  // left is x - width
+  const left = cursorX - bubbleCenter;
+  // top is y - height - header height
+  const header = parseInt(getComputedStyle(document.querySelector('header')).height, 10);
+  const top = cursorY - bubbleCenter - header;
+  bubble.style.top = `${top}px`;
+  bubble.style.left = `${left}px`;
+};
 
-}
-
-export default bubble;
+export {
+  bubble,
+  bubbleFollow,
+};

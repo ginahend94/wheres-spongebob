@@ -1,6 +1,6 @@
 import background from '../assets/images/background.jpg';
 import { startGame } from '../functions/game';
-import bubble from './cursor';
+import { bubble, bubbleFollow } from './cursor';
 
 export default (() => {
   const container = document.createElement('main');
@@ -15,6 +15,9 @@ export default (() => {
   })();
   const bg = new Image();
   bg.src = background;
+
+  container.addEventListener('mousemove', bubbleFollow);
+
   container.append(
     curtain,
     bg,
