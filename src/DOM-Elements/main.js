@@ -1,5 +1,6 @@
 import background from '../assets/images/background.jpg';
 import { startGame } from '../functions/game';
+import bubble from './cursor';
 
 export default (() => {
   const container = document.createElement('main');
@@ -17,6 +18,7 @@ export default (() => {
   container.append(
     curtain,
     bg,
+    bubble,
   );
 
   return container;
