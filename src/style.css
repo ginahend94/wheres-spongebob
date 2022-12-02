@@ -91,6 +91,7 @@ main {
   flex:auto;
   width: 100%;
   position: relative;
+  cursor: none;
   /* height: fit-content; */
   /* border:solid 10px; */
   /* overflow-x: scroll; */
