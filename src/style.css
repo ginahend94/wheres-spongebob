@@ -92,11 +92,6 @@ main {
   width: 100%;
   position: relative;
   cursor: none;
-  /* height: fit-content; */
-  /* border:solid 10px; */
-  /* overflow-x: scroll; */
-  /* display: flex; */
-  /* scrollbar-width: none; */
 }
 
 main img {
@@ -114,7 +109,7 @@ main img {
   position: absolute;
   top:0;
   left:0;
-  background-color: rgba(255, 255, 255, .2);
+  background-color: rgba(255, 255, 255, .15);
 }
 
 .bubble .shine {
