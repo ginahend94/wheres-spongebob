@@ -1,5 +1,5 @@
 import background from '../assets/images/background.jpg';
-import { startGame } from '../functions/game';
+import { endGame, startGame } from '../functions/game';
 import { bubble, bubbleFollow } from './cursor';
 
 export default (() => {
@@ -8,9 +8,15 @@ export default (() => {
     const cont = document.createElement('div');
     cont.classList.add('curtain');
     const start = document.createElement('button');
+    const stop = document.createElement('button');
     start.textContent = 'Start';
+    stop.textContent = 'Stop';
     start.addEventListener('click', startGame);
-    cont.append(start);
+    stop.addEventListener('click', endGame);
+    cont.append(
+      start,
+      stop,
+    );
     return cont;
   })();
   const bg = new Image();

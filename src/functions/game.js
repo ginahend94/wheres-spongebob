@@ -63,7 +63,13 @@ const startGame = () => {
   console.log('starting game');
 };
 
+const endGame = () => {
+  timer.stop();
+  console.log('ending game');
+};
+
 export {
   startGame,
+  endGame,
   timer,
 };
