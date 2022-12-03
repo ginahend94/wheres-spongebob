@@ -4,13 +4,7 @@ const timer = (() => {
   const mm = document.createElement('span');
   const ss = document.createElement('span');
   const ms = document.createElement('span');
-  container.append(
-    mm,
-    ':',
-    ss,
-    '.',
-    ms,
-  );
+  container.append(mm, ':', ss, '.', ms);
 
   const setTimeDisplay = (mmTime, ssTime, msTime) => {
     mm.textContent = mmTime.toString().padStart(2, '0');
@@ -22,10 +16,11 @@ const timer = (() => {
 
   let int;
 
+  let mmTime = 0;
+  let ssTime = 0;
+  let msTime = 0;
+
   const start = () => {
-    let mmTime = 0;
-    let ssTime = 0;
-    let msTime = 0;
     int = setInterval(() => {
       msTime += 1;
       if (msTime >= 100) {
@@ -43,7 +38,7 @@ const timer = (() => {
   const resetTimer = () => {
     clearInterval(int);
     int = null;
-    setTimeDisplay('00', '00', '000');
+    setTimeDisplay('00', '00', '00');
   };
 
   const stopTimer = () => {
@@ -63,13 +58,19 @@ const startGame = () => {
   console.log('starting game');
 };
 
-const endGame = () => {
+const stopGame = () => {
   timer.stop();
-  console.log('ending game');
+  console.log('stopping game');
+};
+
+const resetGame = () => {
+  timer.reset();
+  console.log('resetting game');
 };
 
 export {
   startGame,
-  endGame,
+  stopGame,
+  resetGame,
   timer,
 };

@@ -1,5 +1,5 @@
 import background from '../assets/images/background.jpg';
-import { stopGame, startGame } from '../functions/game';
+import { stopGame, startGame, resetGame } from '../functions/game';
 import { bubble, bubbleFollow } from './cursor';
 
 export default (() => {
@@ -15,7 +15,7 @@ export default (() => {
     reset.textContent = 'Reset';
     start.addEventListener('click', startGame);
     stop.addEventListener('click', stopGame);
-    reset.addEventListener('click', reset);
+    reset.addEventListener('click', resetGame);
     cont.append(
       start,
       stop,
