@@ -52,6 +52,8 @@ tricky since you’ll have anonymous users you need to keep track of!
 // * Hover over area
 // Area zooms
 // Click area
+// Bubble stops following
+// x and y recorded
 // Box appears around targeted point
 // List of characters appears
 // Hover over character name
