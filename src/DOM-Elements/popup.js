@@ -1,41 +1,44 @@
-import testData from '../test.json';
 import getData from '../functions/getData';
 
 const popup = (() => {
-  // const list = testData.characters;
-  const container = document.createElement('ul');
-  container.classList.add('popup');
-  getData()
-    .then((res) => {
-      const list = res.characters;
-      Object.keys(list).forEach((character) => {
-        // Change name to title case
-        const name = character
-          .split('-')
-          .map((word) => word[0].toUpperCase() + word.slice(1))
-          .join(' ');
-        const item = document.createElement('li');
-        item.textContent = name;
-        item.dataset.character = character;
-        item.dataset.name = name;
-        container.append(item);
-        item.addEventListener('click', () => {
-          item.parentElement.childNodes.forEach((child) => child.setAttribute('data-active', false));
-          item.dataset.active = true;
-        });
+  const container = document.createElement('div');
+  container.classList.add('popup-container');
+  const bg = document.createElement('div');
+  bg.classList.add('popup-bg');
+  const ul = document.createElement('ul');
+  ul.classList.add('popup');
+  getData().then((res) => {
+    const list = res.characters;
+    Object.keys(list).forEach((character) => {
+      // Change name to title case
+      const name = character
+        .split('-')
+        .map((word) => word[0].toUpperCase() + word.slice(1))
+        .join(' ');
+      const item = document.createElement('li');
+      item.textContent = name;
+      item.dataset.character = character;
+      item.dataset.name = name;
+      ul.append(item);
+      item.addEventListener('click', () => {
+        item.parentElement.childNodes.forEach((child) =>
+          child.setAttribute('data-active', false)
+        );
+        item.dataset.active = true;
       });
-      const cancel = document.createElement('li');
-      cancel.textContent = 'Cancel';
-      cancel.classList.add('cancel');
-      container.append(cancel);
     });
+    const cancel = document.createElement('li');
+    cancel.textContent = 'Cancel';
+    cancel.classList.add('cancel');
+    ul.append(cancel);
+  });
+  container.append(bg, ul);
   return container;
 })();
 
 const hidePopup = () => {
   popup.style.display = 'none';
   popup.childNodes.forEach((child) => child.setAttribute('data-active', false));
-  popup.parentElement.removeEventListener('click', hideOnOutsideClick);
 };
 
 const movePopup = (e) => {
@@ -50,8 +53,7 @@ const selectCharacter = async (e) => {
     popup.querySelectorAll('li').forEach((item) => {
       item.addEventListener('click', () => {
         if (item.classList.contains('cancel')) {
-          console.log('oh');
-          reject();
+          reject(new Error('canceled'));
         }
         resolve({
           id: item.dataset.character,
@@ -59,6 +61,10 @@ const selectCharacter = async (e) => {
         });
         hidePopup();
       });
+    });
+    popup.querySelector('.popup-bg').addEventListener('click', () => {
+      reject(new Error('clicked outside'));
+      hidePopup();
     });
   });
 };
