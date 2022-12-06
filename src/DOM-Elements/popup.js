@@ -34,4 +34,5 @@ const hidePopup = () => {
 export {
   popup,
   movePopup,
+  hidePopup,
 };
