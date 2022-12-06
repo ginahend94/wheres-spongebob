@@ -1,18 +1,17 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-use-before-define */
 import 'iconify-icon';
 
 const hideElement = (element, selector) => {
   const hide = (e) => {
     if (!e.target.closest(selector)) {
       element.style.display = 'none';
-      removeListener();
+      // removeListener();
     }
   };
   const removeListener = () => {
     document.body.removeEventListener('click', hide);
   };
-  document.body.addEventListener('click', hide);
+  document.body.addEventListener('click', hide, { once: true });
 };
 
 const icon = (name) => {

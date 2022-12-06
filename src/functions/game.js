@@ -80,16 +80,30 @@ const makeSelection = async (e) => {
   setIsSelecting(true);
   // x and y recorded
   const { pageX, pageY } = e;
-  // console.log(pageX, pageY);
+  try {
   // List of characters appears
   // Click character name
-  const character = await selectCharacter(e);
-  // Get character location
-  console.log(testData.characters[character]);
-  // Compare location to input
-  // If matches, show success
-  // Disable character
-  // Remove character from list
+    const character = await selectCharacter(e);
+    // Get character location
+    // Compare location to input
+    const { x1, y1, x2, y2 } = testData.characters[character.id];
+    // If input is within bounds, show success
+    if (pageX > x1 && pageX < x2 && pageY > y1 && pageY < y2) {
+      // show success
+      // TEST
+      alert(`You found ${character.name}!`);
+      // Disable character
+      // Remove character from list
+    } else {
+      // show failure
+      // TEST
+      alert(`Oops, ${character.name} isn't there!`);
+    }
+    setIsSelecting(false);
+  } catch (err) {
+    console.log('clicked away');
+  }
+  setIsSelecting(false);
 };
 
 export {

@@ -1,3 +1,4 @@
+import { isSelecting } from '../functions/game';
 import testData from '../test.json';
 
 const popup = (() => {
@@ -13,6 +14,7 @@ const popup = (() => {
     const item = document.createElement('li');
     item.textContent = name;
     item.dataset.character = character;
+    item.dataset.name = name;
     container.append(item);
     item.addEventListener('click', () => {
       item.parentElement.childNodes.forEach((child) => child.setAttribute('data-active', false));
@@ -22,25 +24,46 @@ const popup = (() => {
   return container;
 })();
 
+const hidePopup = () => {
+  popup.style.display = 'none';
+  popup.childNodes.forEach((child) => child.setAttribute('data-active', false));
+  popup.parentElement.removeEventListener('click', hideOnOutsideClick);
+};
+
+let clickAway;
+
+const hideOnOutsideClick = (e) => {
+  if (!e.target.closest('.popup')) {
+    console.log('outside');
+    hidePopup();
+  }
+};
+
 const movePopup = (e) => {
   popup.style.display = 'block';
   popup.style.top = `${e.pageY}px`;
   popup.style.left = `${e.pageX + 50}px`;
 };
 
-const hidePopup = () => {
-  popup.style.display = 'none';
-};
-
 const selectCharacter = async (e) => {
   movePopup(e);
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     popup.querySelectorAll('li').forEach((item) => {
       item.addEventListener('click', () => {
-        resolve(item.dataset.character);
+        resolve({
+          id: item.dataset.character,
+          name: item.dataset.name,
+        });
         hidePopup();
       });
     });
+    clickAway = (event) => {
+      hideOnOutsideClick(event);
+      reject();
+    };
+    setTimeout(() => {
+      document.addEventListener('click', clickAway, { once: true });
+    }, 0);
   });
 };
 
