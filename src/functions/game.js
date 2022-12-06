@@ -1,5 +1,6 @@
 import getData from './getData';
 import { selectCharacter } from '../DOM-Elements/popup';
+import showToast from '../DOM-Elements/toast';
 
 const timer = (() => {
   const container = document.createElement('div');
@@ -91,6 +92,7 @@ const makeSelection = async (e) => {
     // If input is within bounds, show success
     if (pageX > x1 && pageX < x2 && pageY > y1 && pageY < y2) {
       // show success
+      showToast('green', `You found ${character.name}!`);
       // TEST
       alert(`You found ${character.name}!`);
       // Disable character
@@ -102,9 +104,8 @@ const makeSelection = async (e) => {
     }
     setIsSelecting(false);
   } catch (err) {
-    console.log('clicked away');
+    setIsSelecting(false);
   }
-  setIsSelecting(false);
 };
 
 export {
