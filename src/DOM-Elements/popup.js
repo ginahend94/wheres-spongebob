@@ -1,4 +1,5 @@
-// import getData from '../functions/getData';
+// import data from '../functions/getData';
+import { getCharacters } from '../functions/characters';
 
 const popup = (() => {
   const container = document.createElement('div');
@@ -8,55 +9,31 @@ const popup = (() => {
   const ul = document.createElement('ul');
   ul.classList.add('popup');
 
-  // getData().then((res) => {
-  //   const list = res.characters;
-  //   Object.keys(list).forEach((character) => {
-  //     // Change name to title case
-  //     const name = character
-  //       .split('-')
-  //       .map((word) => word[0].toUpperCase() + word.slice(1))
-  //       .join(' ');
-  //     const item = document.createElement('li');
-  //     item.textContent = name;
-  //     item.dataset.character = character;
-  //     item.dataset.name = name;
-  //     ul.append(item);
-  //     item.addEventListener('click', () => {
-  //       item.parentElement.childNodes.forEach((child) => {
-  //         child.setAttribute('data-active', false);
-  //       });
-  //       item.dataset.active = true;
-  //     });
-  //   });
-
-  const cancel = document.createElement('li');
-  cancel.textContent = 'Cancel';
-  cancel.classList.add('cancel');
-  ul.append(cancel);
-
-  const populateList = (list) => {
-    list.forEach((character) => {
-      if (character.found) return;
-      const item = document.createElement('li');
-      item.textContent = character.name;
-      item.dataset.character = character.id;
-      item.dataset.name = character.name;
-      ul.insertBefore(cancel, item);
-      item.addEventListener('click', () => {
-        item.parentElement.childNodes.forEach((child) => {
-          child.setAttribute('data-active', false);
-        });
-        item.dataset.active = true;
-      });
-    });
-  };
-
   container.append(bg, ul);
-  return {
-    container,
-    populateList,
-  };
+  return container;
 })();
+
+const populateList = (list) => {
+  const ul = popup.querySelector('ul');
+  ul.textContent = '';
+  list.forEach((character) => {
+    if (character.found) {
+      console.log(character.found);
+      return;
+    }
+    const item = document.createElement('li');
+    item.textContent = character.name;
+    item.dataset.character = character.id;
+    item.dataset.name = character.name;
+    ul.append(item);
+    item.addEventListener('click', () => {
+      item.parentElement.childNodes.forEach((child) => {
+        child.setAttribute('data-active', false);
+      });
+      item.dataset.active = true;
+    });
+  });
+};
 
 const hidePopup = () => {
   popup.style.display = 'none';
@@ -71,8 +48,11 @@ const movePopup = (e) => {
   popup.style.left = `${e.pageX + 50}px`;
 };
 // TODO - fix page overflow of popup
+const characters = getCharacters();
+console.log(characters);
 
 const selectCharacter = async (e) => {
+  populateList(characters);
   movePopup(e);
   return new Promise((resolve, reject) => {
     popup.querySelectorAll('li').forEach((item) => {
@@ -94,6 +74,6 @@ const selectCharacter = async (e) => {
   });
 };
 
-const populateList = (list) => popup.populateList(list);
+// const populateList = (list) => popup.populateList(list);
 
 export { popup, selectCharacter, populateList };
