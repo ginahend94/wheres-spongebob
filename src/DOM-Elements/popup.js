@@ -38,7 +38,9 @@ const popup = (() => {
 
 const hidePopup = () => {
   popup.style.display = 'none';
-  popup.childNodes.forEach((child) => child.setAttribute('data-active', false));
+  popup.querySelector('.popup').childNodes.forEach((child) => {
+    child.setAttribute('data-active', false);
+  });
 };
 
 const movePopup = (e) => {
@@ -46,6 +48,7 @@ const movePopup = (e) => {
   popup.style.top = `${e.pageY}px`;
   popup.style.left = `${e.pageX + 50}px`;
 };
+// TODO - fix page overflow of popup
 
 const selectCharacter = async (e) => {
   movePopup(e);
