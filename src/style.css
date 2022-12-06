@@ -24,6 +24,8 @@
   --rgb-black:6, 6, 65;
   --rgb-blue:0, 162, 255;
   --rgb-white:215, 239, 255;
+  --red: rgb(160, 48, 48);
+  --green: rgb(69, 131, 69);
 }
 
 body {
@@ -136,14 +138,25 @@ main img {
   box-shadow: 10px 2px white;
 }
 
+.popup-bg {
+  position: fixed;
+  top:0;
+  left:0;
+  width: 100vw;
+  height:100vh;
+}
+
+.popup-container {
+  position:absolute;
+  display: none;
+}
+
 .popup {
   border: solid 3px var(--white);
   overflow: hidden;
   border-radius: 5px;
-  position: absolute;
   padding: 0;
   backdrop-filter: blur(5px);
-  /* display: none; */
 }
 
 .popup li {
@@ -165,6 +178,22 @@ main img {
 
 .popup li:hover, .popup li[data-active="true"] {
   background-color: var(--white);
+}
+
+.toast {
+  position: fixed;
+  bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  max-width: 30ch;
+  text-align: center;
+}
+.toast.red {
+  background-color: var(--red);
+}
+.toast.green {
+  background-color: var(--green);
 }
 
 footer {
