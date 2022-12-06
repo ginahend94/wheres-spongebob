@@ -1,5 +1,5 @@
 import testData from '../test.json';
-import { movePopup } from '../DOM-Elements/popup';
+import { selectCharacter } from '../DOM-Elements/popup';
 
 const timer = (() => {
   const container = document.createElement('div');
@@ -75,19 +75,17 @@ let isSelecting = false;
 const getIsSelecting = () => isSelecting;
 const setIsSelecting = (bool) => (isSelecting = bool);
 
-const makeSelection = (e) => {
+const makeSelection = async (e) => {
   // Bubble stops following
   setIsSelecting(true);
   // x and y recorded
   const { pageX, pageY } = e;
-  console.log(pageX, pageY);
+  // console.log(pageX, pageY);
   // List of characters appears
-  movePopup(e);
-  // Hover over character name
-  // Character name is highlighted
   // Click character name
-  // Set character as active
+  const character = await selectCharacter(e);
   // Get character location
+  console.log(testData.characters[character]);
   // Compare location to input
   // If matches, show success
   // Disable character
@@ -100,4 +98,5 @@ export {
   resetGame,
   timer,
   getIsSelecting as isSelecting,
+  makeSelection,
 };

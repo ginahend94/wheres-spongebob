@@ -12,6 +12,7 @@ const popup = (() => {
       .join(' ');
     const item = document.createElement('li');
     item.textContent = name;
+    item.dataset.character = character;
     container.append(item);
     item.addEventListener('click', () => {
       item.parentElement.childNodes.forEach((child) => child.setAttribute('data-active', false));
@@ -31,8 +32,19 @@ const hidePopup = () => {
   popup.style.display = 'none';
 };
 
+const selectCharacter = async (e) => {
+  movePopup(e);
+  return new Promise((resolve) => {
+    popup.querySelectorAll('li').forEach((item) => {
+      item.addEventListener('click', () => {
+        resolve(item.dataset.character);
+        hidePopup();
+      });
+    });
+  });
+};
+
 export {
   popup,
-  movePopup,
-  hidePopup,
+  selectCharacter,
 };
