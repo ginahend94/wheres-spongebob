@@ -1,5 +1,4 @@
 import data from './getData';
-// import { addCharacterImgs } from '../DOM-Elements/header';
 
 const characters = [];
 
@@ -14,11 +13,11 @@ Object.keys(data.characters).forEach((character) => {
     found: false,
   });
 });
-// addCharacterImgs(characters);
 const getCharacters = () => characters;
 const markAsFound = (character) => {
-  const target = characters.find((char) => char.id === character);
+  const target = characters[characters.findIndex((char) => char.id === character)];
   target.found = true;
+  console.log(characters);
 };
 
 export {

@@ -49,7 +49,6 @@ const movePopup = (e) => {
 };
 // TODO - fix page overflow of popup
 const characters = getCharacters();
-console.log(characters);
 
 const selectCharacter = async (e) => {
   populateList(characters);
