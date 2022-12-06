@@ -1,7 +1,7 @@
 import background from '../assets/images/background.jpg';
 import { stopGame, startGame, resetGame, checkLocation } from '../functions/game';
 import { bubble, bubbleFollow } from './cursor';
-import { popup } from './popup';
+// import { popup } from './popup';
 
 export default (() => {
   const container = document.createElement('main');
@@ -38,7 +38,7 @@ export default (() => {
     curtain,
     bg,
     bubble,
-    popup,
+    // popup,
   );
 
   return container;
