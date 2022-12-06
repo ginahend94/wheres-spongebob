@@ -8,14 +8,14 @@ const newToast = (bgColor = 'red', text = 'Error') => {
 const showToast = (bgColor = 'red', text = 'Error') => {
   const toast = newToast(bgColor, text);
   document.body.append(toast);
-  toast.classList.add('show');
+  setTimeout(() => toast.classList.add('show'), 5);
   setTimeout(() => {
     toast.classList.remove('show');
-  }, 3000);
+  }, 5000);
   setTimeout(() => {
     document.body.removeChild(toast);
-  }, 3500);
+  }, 5500);
 };
 
 export default showToast;
-export { newToast };
+export { newToast }; // TEST
