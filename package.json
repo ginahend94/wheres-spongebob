@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/ginahend94/wheres-spongebob#readme",
   "dependencies": {
+    "firebase": "^9.14.0",
     "iconify-icon": "^1.0.1",
     "normalize-css": "^2.3.1"
   },
