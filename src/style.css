@@ -91,7 +91,8 @@ main {
   flex:auto;
   width: 100%;
   position: relative;
-  cursor: none;
+  /* TEST */
+  /* cursor: none; */
 }
 
 main img {

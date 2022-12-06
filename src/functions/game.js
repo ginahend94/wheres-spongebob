@@ -1,3 +1,5 @@
+import testData from '../test.json';
+
 const timer = (() => {
   const container = document.createElement('div');
   container.classList.add('timer');
@@ -68,9 +70,14 @@ const resetGame = () => {
   console.log('resetting game');
 };
 
+const checkLocation = (e, character) => {
+  console.log(testData[character]);
+}
+
 export {
   startGame,
   stopGame,
   resetGame,
   timer,
+  checkLocation
 };

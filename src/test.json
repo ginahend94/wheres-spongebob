@@ -1,0 +1,19 @@
+{
+  "characters": {
+    "bubble-bass": {
+      "location": [1111, 1045],
+      "width": 53,
+      "height": 71
+    },
+    "mama-krabs": {
+      "location": [759, 812],
+      "width": 53,
+      "height": 71
+    },
+    "old-man-walker": {
+      "location": [520, 1009],
+      "width": 40,
+      "height": 10
+    }
+  }
+}

@@ -27,7 +27,11 @@ export default (() => {
   const bg = new Image();
   bg.src = background;
 
-  container.addEventListener('mousemove', bubbleFollow);
+  // TEST
+  // container.addEventListener('mousemove', bubbleFollow);
+  container.addEventListener('click', (e) => {
+    console.log(e.pageX, e.pageY);
+  });
 
   container.append(
     curtain,
