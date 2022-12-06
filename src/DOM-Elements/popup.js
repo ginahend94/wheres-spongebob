@@ -1,4 +1,4 @@
-import getData from '../functions/getData';
+// import getData from '../functions/getData';
 
 const popup = (() => {
   const container = document.createElement('div');
@@ -7,19 +7,41 @@ const popup = (() => {
   bg.classList.add('popup-bg');
   const ul = document.createElement('ul');
   ul.classList.add('popup');
-  getData().then((res) => {
-    const list = res.characters;
-    Object.keys(list).forEach((character) => {
-      // Change name to title case
-      const name = character
-        .split('-')
-        .map((word) => word[0].toUpperCase() + word.slice(1))
-        .join(' ');
+
+  // getData().then((res) => {
+  //   const list = res.characters;
+  //   Object.keys(list).forEach((character) => {
+  //     // Change name to title case
+  //     const name = character
+  //       .split('-')
+  //       .map((word) => word[0].toUpperCase() + word.slice(1))
+  //       .join(' ');
+  //     const item = document.createElement('li');
+  //     item.textContent = name;
+  //     item.dataset.character = character;
+  //     item.dataset.name = name;
+  //     ul.append(item);
+  //     item.addEventListener('click', () => {
+  //       item.parentElement.childNodes.forEach((child) => {
+  //         child.setAttribute('data-active', false);
+  //       });
+  //       item.dataset.active = true;
+  //     });
+  //   });
+
+  const cancel = document.createElement('li');
+  cancel.textContent = 'Cancel';
+  cancel.classList.add('cancel');
+  ul.append(cancel);
+
+  const populateList = (list) => {
+    list.forEach((character) => {
+      if (character.found) return;
       const item = document.createElement('li');
-      item.textContent = name;
-      item.dataset.character = character;
-      item.dataset.name = name;
-      ul.append(item);
+      item.textContent = character.name;
+      item.dataset.character = character.id;
+      item.dataset.name = character.name;
+      ul.insertBefore(cancel, item);
       item.addEventListener('click', () => {
         item.parentElement.childNodes.forEach((child) => {
           child.setAttribute('data-active', false);
@@ -27,13 +49,13 @@ const popup = (() => {
         item.dataset.active = true;
       });
     });
-    const cancel = document.createElement('li');
-    cancel.textContent = 'Cancel';
-    cancel.classList.add('cancel');
-    ul.append(cancel);
-  });
+  };
+
   container.append(bg, ul);
-  return container;
+  return {
+    container,
+    populateList,
+  };
 })();
 
 const hidePopup = () => {
@@ -72,4 +94,6 @@ const selectCharacter = async (e) => {
   });
 };
 
-export { popup, selectCharacter };
+const populateList = (list) => popup.populateList(list);
+
+export { popup, selectCharacter, populateList };

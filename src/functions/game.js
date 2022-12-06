@@ -1,25 +1,6 @@
 import getData from './getData';
 import { selectCharacter } from '../DOM-Elements/popup';
 import showToast from '../DOM-Elements/toast';
-import curtain from '../DOM-Elements/curtain';
-import { addCharacterImgs } from '../DOM-Elements/header';
-
-const characters = [];
-getData().then((res) => {
-  Object.keys(res.characters).forEach((character) => {
-    const name = character
-      .split('-')
-      .map((word) => word[0].toUpperCase() + word.slice(1))
-      .join(' ');
-    characters.push({
-      name,
-      id: character,
-      found: false,
-    });
-  });
-  addCharacterImgs(characters);
-  console.log(characters);
-});
 
 let isSelecting = false;
 const getIsSelecting = () => isSelecting;
@@ -54,4 +35,7 @@ const makeSelection = async (e) => {
   }
 };
 
-export { getIsSelecting as isSelecting, makeSelection };
+export {
+  getIsSelecting as isSelecting,
+  makeSelection,
+};

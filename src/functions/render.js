@@ -1,3 +1,4 @@
+import './characters';
 import header from '../DOM-Elements/header';
 import main from '../DOM-Elements/main';
 import footer from '../DOM-Elements/footer';
