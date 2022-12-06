@@ -1,4 +1,4 @@
-import { timer } from '../functions/game';
+import timer from './timer';
 
 const importImages = () => {
   const imgObj = {};
@@ -27,17 +27,19 @@ const header = (() => {
     const img = new Image();
     const cap = document.createElement('figcaption');
     img.src = characterSrcs[key];
-    img.classList.add(key.toLowerCase(), 'character');
-    img.setAttribute('data-found', false);
+    fig.classList.add(key.toLowerCase(), 'character');
+    fig.setAttribute('data-found', false);
     cap.textContent = key.replace(/-/g, ' ');
     fig.append(img, cap);
     return fig;
   });
   // Later, cycle through characters
   // imgs.forEach((a) => characters.append(a));
+  characters.textContent = 'Loading...';
   const addCharacterImgs = (list) => {
+    characters.innerHTML = '';
     list.forEach((character) => {
-      characters.append(imgs.find((a) => a.querySelector(`.${character.id}`)));
+      characters.append(imgs.find((a) => a.classList.contains(character.id)));
     });
   };
   // characters.append(
@@ -61,7 +63,7 @@ const header = (() => {
   };
 })();
 
-const addCharacterImgs = () => header.addCharacterImgs();
+const addCharacterImgs = (list) => header.addCharacterImgs(list);
 
 export default header.container;
 export { addCharacterImgs };

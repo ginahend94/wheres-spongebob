@@ -1,76 +1,25 @@
 import getData from './getData';
 import { selectCharacter } from '../DOM-Elements/popup';
 import showToast from '../DOM-Elements/toast';
+import curtain from '../DOM-Elements/curtain';
+import { addCharacterImgs } from '../DOM-Elements/header';
 
-const timer = (() => {
-  const container = document.createElement('div');
-  container.classList.add('timer');
-  const mm = document.createElement('span');
-  const ss = document.createElement('span');
-  const ms = document.createElement('span');
-  container.append(mm, ':', ss, '.', ms);
-
-  const setTimeDisplay = (mmTime, ssTime, msTime) => {
-    mm.textContent = mmTime.toString().padStart(2, '0');
-    ss.textContent = ssTime.toString().padStart(2, '0');
-    ms.textContent = parseInt(msTime, 10).toString().padStart(2, '0');
-  };
-
-  setTimeDisplay('00', '00', '0');
-
-  let int;
-
-  let mmTime = 0;
-  let ssTime = 0;
-  let msTime = 0;
-
-  const start = () => {
-    int = setInterval(() => {
-      msTime += 1;
-      if (msTime >= 100) {
-        ssTime += 1;
-        msTime = 0;
-      }
-      if (ssTime >= 60) {
-        mmTime += 1;
-        ssTime = 0;
-      }
-      setTimeDisplay(mmTime, ssTime, msTime);
-    }, 1);
-  };
-
-  const resetTimer = () => {
-    clearInterval(int);
-    int = null;
-    setTimeDisplay('00', '00', '00');
-  };
-
-  const stopTimer = () => {
-    clearInterval(int);
-  };
-
-  return {
-    container,
-    start,
-    reset: resetTimer,
-    stop: stopTimer,
-  };
-})();
-
-const startGame = () => {
-  timer.start();
-  console.log('starting game');
-};
-
-const stopGame = () => {
-  timer.stop();
-  console.log('stopping game');
-};
-
-const resetGame = () => {
-  timer.reset();
-  console.log('resetting game');
-};
+const characters = [];
+getData().then((res) => {
+  Object.keys(res.characters).forEach((character) => {
+    const name = character
+      .split('-')
+      .map((word) => word[0].toUpperCase() + word.slice(1))
+      .join(' ');
+    characters.push({
+      name,
+      id: character,
+      found: false,
+    });
+  });
+  addCharacterImgs(characters);
+  console.log(characters);
+});
 
 let isSelecting = false;
 const getIsSelecting = () => isSelecting;
@@ -97,7 +46,6 @@ const makeSelection = async (e) => {
       // Remove character from list
     } else {
       // show failure
-      // TEST
       showToast('red', `Oops, ${character.name} isn't there.`);
     }
     setIsSelecting(false);
@@ -106,11 +54,4 @@ const makeSelection = async (e) => {
   }
 };
 
-export {
-  startGame,
-  stopGame,
-  resetGame,
-  timer,
-  getIsSelecting as isSelecting,
-  makeSelection,
-};
+export { getIsSelecting as isSelecting, makeSelection };
