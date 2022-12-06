@@ -1,4 +1,3 @@
-import { isSelecting } from '../functions/game';
 import testData from '../test.json';
 
 const popup = (() => {
