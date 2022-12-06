@@ -71,7 +71,7 @@ const resetGame = () => {
 };
 
 const checkLocation = (e, character) => {
-  console.log(testData[character]);
+  // console.log(testData.characters[character]);
 }
 
 export {
