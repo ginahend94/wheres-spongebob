@@ -25,7 +25,7 @@ const popup = (() => {
 const movePopup = (e) => {
   popup.style.display = 'block';
   popup.style.top = `${e.pageY}px`;
-  popup.style.left = `${e.pageX}px`;
+  popup.style.left = `${e.pageX + 50}px`;
 };
 
 const hidePopup = () => {
