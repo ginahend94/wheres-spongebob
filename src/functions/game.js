@@ -93,14 +93,12 @@ const makeSelection = async (e) => {
     if (pageX > x1 && pageX < x2 && pageY > y1 && pageY < y2) {
       // show success
       showToast('green', `You found ${character.name}!`);
-      // TEST
-      alert(`You found ${character.name}!`);
       // Disable character
       // Remove character from list
     } else {
       // show failure
       // TEST
-      alert(`Oops, ${character.name} isn't there!`);
+      showToast('red', `Oops, ${character.name} isn't there.`);
     }
     setIsSelecting(false);
   } catch (err) {
