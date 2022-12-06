@@ -1,4 +1,5 @@
 import timer from './timer';
+import { getCharacters } from '../functions/characters';
 
 const importImages = () => {
   const imgObj = {};
@@ -20,7 +21,7 @@ const importImages = () => {
 const header = (() => {
   const container = document.createElement('header');
   const title = document.createElement('h1');
-  const characters = document.createElement('div');
+  const characterContainer = document.createElement('div');
   const characterSrcs = importImages();
   const imgs = Object.keys(characterSrcs).map((key) => {
     const fig = document.createElement('figure');
@@ -34,36 +35,28 @@ const header = (() => {
     return fig;
   });
   // Later, cycle through characters
-  // imgs.forEach((a) => characters.append(a));
-  characters.textContent = 'Loading...';
+  characterContainer.textContent = 'Loading...';
   const addCharacterImgs = (list) => {
-    characters.innerHTML = '';
+    characterContainer.innerHTML = '';
     list.forEach((character) => {
-      characters.append(imgs.find((a) => a.classList.contains(character.id)));
+      characterContainer.append(imgs.find((a) => a.classList.contains(character.id)));
     });
   };
-  // characters.append(
-  //   imgs.find((a) => a.querySelector('.old-man-walker')),
-  //   imgs.find((a) => a.querySelector('.mama-krabs')),
-  //   imgs.find((a) => a.querySelector('.bubble-bass')),
-  // );
+  addCharacterImgs(getCharacters());
 
   title.textContent = 'Where\'s SpongeBob?';
-  characters.classList.add('characters');
+  characterContainer.classList.add('characters');
 
   container.append(
     title,
-    characters,
+    characterContainer,
     timer.container,
   );
 
-  return {
-    container,
-    addCharacterImgs,
-  };
+  return container;
 })();
 
-const addCharacterImgs = (list) => header.addCharacterImgs(list);
+// const addCharacterImgs = (list) => header.addCharacterImgs(list);
 
-export default header.container;
-export { addCharacterImgs };
+export default header;
+// export { addCharacterImgs };

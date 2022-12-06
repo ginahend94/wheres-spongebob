@@ -4,6 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: './src/index.js',
+  experiments: {
+    topLevelAwait: true,
+  },
   devtool: 'inline-source-map',
   devServer: {
     static: './dist',
