@@ -1,4 +1,3 @@
-import modal from './modal';
 import { timer } from '../functions/game';
 
 const importImages = () => {
@@ -18,10 +17,9 @@ const importImages = () => {
   return imgObj;
 };
 
-export default (() => {
+const header = (() => {
   const container = document.createElement('header');
   const title = document.createElement('h1');
-  const about = document.createElement('button');
   const characters = document.createElement('div');
   const characterSrcs = importImages();
   const imgs = Object.keys(characterSrcs).map((key) => {
@@ -37,32 +35,33 @@ export default (() => {
   });
   // Later, cycle through characters
   // imgs.forEach((a) => characters.append(a));
-  characters.append(
-    imgs.find((a) => a.querySelector('.old-man-walker')),
-    imgs.find((a) => a.querySelector('.mama-krabs')),
-    imgs.find((a) => a.querySelector('.bubble-bass')),
-  );
+  const addCharacterImgs = (list) => {
+    list.forEach((character) => {
+      characters.append(imgs.find((a) => a.querySelector(`.${character.id}`)));
+    });
+  };
+  // characters.append(
+  //   imgs.find((a) => a.querySelector('.old-man-walker')),
+  //   imgs.find((a) => a.querySelector('.mama-krabs')),
+  //   imgs.find((a) => a.querySelector('.bubble-bass')),
+  // );
 
   title.textContent = 'Where\'s SpongeBob?';
-  about.textContent = 'About';
   characters.classList.add('characters');
-
-  const setModal = () => {
-    modal.setTitle('About');
-    modal.setText(`
-    <p>This is a game in the style of <cite>Where's Waldo</cite>. Search the image for the characters and click when you've found them!
-    `);
-    modal.open();
-  };
-
-  about.addEventListener('click', setModal);
 
   container.append(
     title,
-    // about,
     characters,
     timer.container,
   );
 
-  return container;
+  return {
+    container,
+    addCharacterImgs,
+  };
 })();
+
+const addCharacterImgs = () => header.addCharacterImgs();
+
+export default header.container;
+export { addCharacterImgs };
