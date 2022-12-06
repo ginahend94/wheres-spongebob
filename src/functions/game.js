@@ -1,4 +1,4 @@
-import testData from '../test.json';
+import getData from './getData';
 import { selectCharacter } from '../DOM-Elements/popup';
 
 const timer = (() => {
@@ -81,12 +81,13 @@ const makeSelection = async (e) => {
   // x and y recorded
   const { pageX, pageY } = e;
   try {
-  // List of characters appears
-  // Click character name
+    // List of characters appears
+    // Click character name
     const character = await selectCharacter(e);
     // Get character location
     // Compare location to input
-    const { x1, y1, x2, y2 } = testData.characters[character.id];
+    const data = await getData();
+    const { x1, y1, x2, y2 } = data.characters[character.id];
     // If input is within bounds, show success
     if (pageX > x1 && pageX < x2 && pageY > y1 && pageY < y2) {
       // show success
