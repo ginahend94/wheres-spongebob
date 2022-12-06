@@ -1,3 +1,5 @@
+import { isSelecting } from '../functions/game';
+
 const bubble = (() => {
   const container = document.createElement('div');
   container.classList.add('bubble');
@@ -10,6 +12,7 @@ const bubble = (() => {
 })();
 
 const bubbleFollow = (e) => {
+  if (isSelecting()) return;
   let left;
   let top;
   // take in x and y of cursor

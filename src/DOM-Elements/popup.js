@@ -1,29 +1,37 @@
+import testData from '../test.json';
+
 const popup = (() => {
-  const list = [
-    {
-      name: 'Old Man Walker',
-      position: [0, 0],
-    },
-    {
-      name: 'Mama Krabs',
-      position: [10, 10],
-    },
-    {
-      name: 'Bubble Bass',
-      position: [20, 20],
-    },
-  ];
+  const list = testData.characters;
   const container = document.createElement('ul');
   container.classList.add('popup');
-  list.forEach((character) => {
+  Object.keys(list).forEach((character) => {
+    // Change name to title case
+    const name = character
+      .split('-')
+      .map((word) => word[0].toUpperCase() + word.slice(1))
+      .join(' ');
     const item = document.createElement('li');
-    item.textContent = character.name;
-    item.dataset.position = character.position;
+    item.textContent = name;
     container.append(item);
+    item.addEventListener('click', () => {
+      item.parentElement.childNodes.forEach((child) => child.setAttribute('data-active', false));
+      item.dataset.active = true;
+    });
   });
   return container;
 })();
 
+const movePopup = (e) => {
+  popup.style.display = 'block';
+  popup.style.top = `${e.pageY}px`;
+  popup.style.left = `${e.pageX}px`;
+};
+
+const hidePopup = () => {
+  popup.style.display = 'none';
+};
+
 export {
   popup,
+  movePopup,
 };

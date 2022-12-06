@@ -1,7 +1,6 @@
 import background from '../assets/images/background.jpg';
-import { stopGame, startGame, resetGame, checkLocation } from '../functions/game';
+import { stopGame, startGame, resetGame } from '../functions/game';
 import { bubble, bubbleFollow } from './cursor';
-// import { popup } from './popup';
 
 export default (() => {
   const container = document.createElement('main');
@@ -27,12 +26,7 @@ export default (() => {
   const bg = new Image();
   bg.src = background;
 
-  // TEST
-  // container.addEventListener('mousemove', bubbleFollow);
-  container.addEventListener('click', (e) => {
-    checkLocation(e, 'mama-krabs');
-    console.log(e.pageX, e.pageY);
-  });
+  container.addEventListener('mousemove', bubbleFollow);
 
   container.append(
     curtain,
