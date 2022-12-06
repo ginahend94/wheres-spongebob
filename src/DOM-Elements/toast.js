@@ -11,10 +11,10 @@ const showToast = (bgColor = 'red', text = 'Error') => {
   setTimeout(() => toast.classList.add('show'), 5);
   setTimeout(() => {
     toast.classList.remove('show');
-  }, 5000);
+  }, 4000);
   setTimeout(() => {
     document.body.removeChild(toast);
-  }, 5500);
+  }, 4500);
 };
 
 export default showToast;
