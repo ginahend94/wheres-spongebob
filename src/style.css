@@ -143,7 +143,7 @@ main img {
   position: absolute;
   padding: 0;
   backdrop-filter: blur(5px);
-  display: none;
+  /* display: none; */
 }
 
 .popup li {
@@ -156,6 +156,11 @@ main img {
 
 .popup li:not(:last-child) {
   border-bottom: solid 1px rgba(var(--rgb-black),.2);
+}
+
+.popup li.cancel {
+  color:rgba(var(--rgb-black), .5);
+  font-size:.8rem;
 }
 
 .popup li:hover, .popup li[data-active="true"] {
