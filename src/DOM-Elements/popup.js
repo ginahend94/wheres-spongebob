@@ -21,9 +21,9 @@ const popup = (() => {
       item.dataset.name = name;
       ul.append(item);
       item.addEventListener('click', () => {
-        item.parentElement.childNodes.forEach((child) =>
-          child.setAttribute('data-active', false)
-        );
+        item.parentElement.childNodes.forEach((child) => {
+          child.setAttribute('data-active', false);
+        });
         item.dataset.active = true;
       });
     });
