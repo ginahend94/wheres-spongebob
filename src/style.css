@@ -182,12 +182,17 @@ main img {
 
 .toast {
   position: fixed;
-  bottom: 10px;
+  bottom: -50px;
   padding: 10px;
   border-radius: 5px;
   color: white;
   max-width: 30ch;
   text-align: center;
+  box-shadow: 2px 2px 3px rgba(var(--rgb-black),.5);
+  transition: .2s;
+}
+.toast.show {
+  bottom: 10px;
 }
 .toast.red {
   background-color: var(--red);
