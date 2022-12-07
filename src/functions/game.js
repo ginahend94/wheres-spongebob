@@ -3,10 +3,13 @@ import { selectCharacter } from '../DOM-Elements/popup';
 import showToast from '../DOM-Elements/toast';
 import { getCharacters, markAsFound } from './characters';
 import { addCharacterImgs } from '../DOM-Elements/header';
+import { controls } from '../DOM-Elements/timer';
 
 let isSelecting = false;
 const getIsSelecting = () => isSelecting;
 const setIsSelecting = (bool) => (isSelecting = bool);
+
+const gameWon = () => getCharacters().every((character) => character.found);
 
 const makeSelection = async (e) => {
   // Bubble stops following
@@ -27,9 +30,15 @@ const makeSelection = async (e) => {
       // Disable character
       // Remove character from list
       markAsFound(character.id);
-      setTimeout(() => {
-        addCharacterImgs(getCharacters());
-      }, 10);
+      addCharacterImgs(getCharacters());
+      if (gameWon()) {
+        // End game
+        const score = controls.stop();
+        // Draw curtain
+        // Show score
+        alert(`you won! your time was ${score.mm}:${score.ss}.${score.ms}!`);
+        // Check for high score
+      }
     } else {
       // show failure
       showToast('red', `Oops, ${character.name} isn't there.`);
@@ -40,7 +49,4 @@ const makeSelection = async (e) => {
   }
 };
 
-export {
-  getIsSelecting as isSelecting,
-  makeSelection,
-};
+export { getIsSelecting as isSelecting, makeSelection };

@@ -26,6 +26,7 @@
   --rgb-white:215, 239, 255;
   --red: rgb(160, 48, 48);
   --green: rgb(69, 131, 69);
+  --header-height: 200px;
 }
 
 body {
@@ -46,7 +47,8 @@ header {
   align-items: center; 
   background: var(--blue);
   background: linear-gradient(357deg, rgba(0,162,255,1) 0%, rgb(125, 209, 240) 100%); 
-  width: min(1000px, 100%);
+  /* width: min(1000px, 100%); */
+  width: 100%;
 }
 
 header h1 {
@@ -107,16 +109,51 @@ header h1 {
   width:2.5ch;
 }
 
+.curtain {
+  position: fixed;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  top:0;
+  left:0;
+  padding-top: 100px;
+  width: 100%;
+  height: 100%;
+  background-image: url('./assets/images/flower-bg.png');
+  background-size: cover;
+  /* background-repeat: no-repeat; */
+  cursor: auto;
+}
+
+.curtain button {
+  padding: 20px 30px;
+  display: block;
+  background-color: var(--black);
+  color:var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: none;
+}
+.curtain button:first-child {
+  font-size: 2rem;
+  font-family: Spongebob;
+  position: relative;
+}
+
+
 main {
   flex:auto;
   width: 100%;
   position: relative;
   cursor: none;
+  margin-top: 200px;
 }
 
 main img {
-  /* height:auto; */
-  /* border: solid red; */
   display: block;
   object-fit: contain;
 }

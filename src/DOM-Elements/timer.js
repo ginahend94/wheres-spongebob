@@ -43,6 +43,11 @@ const timer = (() => {
 
   const stopTimer = () => {
     clearInterval(int);
+    return {
+      mm: mmTime,
+      ss: ssTime,
+      ms: msTime,
+    };
   };
 
   return {
@@ -56,17 +61,12 @@ const timer = (() => {
 const controls = (() => {
   const startGame = () => {
     timer.start();
-    console.log('starting game');
   };
 
-  const stopGame = () => {
-    timer.stop();
-    console.log('stopping game');
-  };
+  const stopGame = () => timer.stop();
 
   const resetGame = () => {
     timer.reset();
-    console.log('resetting game');
   };
   return {
     start: startGame,

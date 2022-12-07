@@ -1,6 +1,5 @@
 import background from '../assets/images/background.jpg';
 import { bubble, bubbleFollow } from './cursor';
-import curtain from './curtain';
 
 const main = (() => {
   const container = document.createElement('main');
@@ -10,18 +9,13 @@ const main = (() => {
   container.addEventListener('mousemove', bubbleFollow);
 
   container.append(
-    curtain.cont,
     bg,
-    bubble
+    bubble,
   );
 
   return {
     container,
-    fillCurtain: curtain.fillCurtain,
   };
 })();
 
-const fillCurtain = () => main.fillCurtain();
-
 export default main.container;
-export { fillCurtain };
