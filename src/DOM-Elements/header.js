@@ -1,23 +1,6 @@
 import timer from './timer';
 import { getCharacters, getImages } from '../functions/characters';
 
-// const importImages = () => {
-//   const imgObj = {};
-//   const importAll = (r) => {
-//     const keys = r.keys();
-//     const urls = r.keys().map(r);
-//     return urls.forEach((url, i) => {
-//       const key = keys[i].replace(/.\/|.png/g, '');
-//       imgObj[key] = url;
-//     });
-//   };
-//   importAll(
-//     // import all images
-//     require.context('../assets/images/characters', false, /\.png$/)
-//   );
-//   return imgObj;
-// };
-
 const header = (() => {
   const container = document.createElement('header');
   const title = document.createElement('h1');
