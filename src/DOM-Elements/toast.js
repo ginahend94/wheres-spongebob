@@ -13,10 +13,10 @@ const showToast = (bgColor = 'red', text = 'Error') => {
   document.body.append(toast);
   setTimeout(() => toast.classList.add('show'), 5);
   const hide = setTimeout(() => {
-    // toast.classList.remove('show'); // TEST
+    toast.classList.remove('show');
   }, 4000);
   const remove = setTimeout(() => {
-    // document.body.removeChild(toast); // TEST
+    document.body.removeChild(toast);
   }, 4500);
   toast.querySelector('span').addEventListener('click', () => {
     clearTimeout(hide);
