@@ -20,7 +20,7 @@ async function getData() {
   return new Promise((resolve) => setTimeout(async () => {
     try {
       const url =
-      'https://raw.githubusercontent.com/ginahend94/wheres-spongebob/main/src/test0.json';
+      'https://raw.githubusercontent.com/ginahend94/wheres-spongebob/main/src/test.json';
       const res = await fetch(url);
       if (!res.ok) {
         showToast('red', `Server Error ${res.status}: ${res.statusText}. \n\rPlease refresh or try again later.`);
