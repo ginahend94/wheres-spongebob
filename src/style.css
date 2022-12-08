@@ -27,6 +27,7 @@
   --red: rgb(160, 48, 48);
   --green: rgb(69, 131, 69);
   --header-height: 200px;
+  scrollbar-color: rgba(var(--rgb-blue), .5) var(--black);
 }
 
 body {
@@ -173,6 +174,9 @@ header h1 {
   position: fixed;
   top:0;
   left:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .loading h2 {
   font-family: Spongebob;
