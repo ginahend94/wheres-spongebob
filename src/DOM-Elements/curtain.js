@@ -1,32 +1,37 @@
+// import { loaded } from '../functions/getData';
 import { controls } from './timer';
+import { getCharacters, getImages } from '../functions/characters';
 
 const curtain = (() => {
   const cont = document.createElement('div');
   const h2 = document.createElement('h2');
-  h2.textContent = 'Where\'s SpongeBob?';
   const h3 = document.createElement('h3');
-  h3.textContent = 'FIND:';
   const characterContainer = document.createElement('div');
+  const start = document.createElement('button');
+
   cont.classList.add('curtain');
-  cont.addEventListener('click', (e) => e.stopImmediatePropagation());
-  cont.textContent = 'Loading...';
+  h2.textContent = 'Where\'s SpongeBob?';
+  h3.textContent = 'FIND:';
+  characterContainer.classList.add('character-container');
+
+  const characters = getCharacters();
+  const images = getImages();
+  characters.forEach((character) => characterContainer.append(
+    images[images.findIndex((img) => img.dataset.character.toLowerCase() === character.id)]
+  ));
+
+  start.textContent = 'Start';
+  start.addEventListener('click', controls.start);
   const fillCurtain = () => {
-    const start = document.createElement('button');
-    const stop = document.createElement('button');
-    const reset = document.createElement('button');
-    start.textContent = 'Start';
-    stop.textContent = 'Pause';
-    reset.textContent = 'Reset';
-    start.addEventListener('click', controls.start);
-    stop.addEventListener('click', controls.stop);
-    reset.addEventListener('click', controls.reset);
     cont.innerHTML = '';
     cont.append(
+      h2,
+      h3,
+      characterContainer,
       start,
-      // stop,
-      // reset,
     );
   };
+  // loaded().then(() => fillCurtain());
   fillCurtain();
   return {
     cont,

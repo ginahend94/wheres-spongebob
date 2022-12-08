@@ -115,15 +115,14 @@ header h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 20px;
   top:0;
   left:0;
-  padding-top: 100px;
   width: 100%;
   height: 100%;
   background-image: url('./assets/images/flower-bg.png');
   background-size: cover;
-  /* background-repeat: no-repeat; */
   cursor: auto;
 }
 
@@ -137,20 +136,70 @@ header h1 {
   align-items: center;
   border-radius: 10px;
   border: none;
-}
-.curtain button:first-child {
   font-size: 2rem;
   font-family: Spongebob;
   position: relative;
 }
 
+.curtain h2 {
+  font-family: Spongebob;
+  font-size: 3rem;
+  margin: 0;
+  color: yellow;
+  text-shadow: 3px 3px 3px var(--black);
+}
+.curtain h3 {
+  color: white;
+  font-size: 2rem;
+  margin: 10px;
+  text-shadow: 2px 1px 3px var(--black);
+}
+.curtain .character-container {
+  display: flex;
+  background-color: rgba(var(--rgb-white), .3);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 5px;
+  margin:10px;
+  gap:20px;
+  font-weight: bold;
+}
+
+.loading {
+  background-image: url('./assets/images/flower-bg.png');
+  background-size: cover;
+  width:100vw;
+  height:100vh;
+  position: fixed;
+  top:0;
+  left:0;
+}
+.loading h2 {
+  font-family: Spongebob;
+  font-size: 3rem;
+  margin: 0;
+  color: yellow;
+  text-shadow: 3px 3px 3px var(--black);
+  animation: pulse 4s infinite;
+ }
+
+@keyframes pulse {
+  0% {
+    transform: scale(95%);
+  }
+  50% {
+    transform: scale(110%);
+  }
+  100% {
+    transform: scale(95%);
+  }
+}
 
 main {
   flex:auto;
   width: 100%;
   position: relative;
   cursor: none;
-  margin-top: 200px;
 }
 
 main img {

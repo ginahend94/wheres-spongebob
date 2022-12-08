@@ -8,6 +8,7 @@ import { makeSelection } from './game';
 
 export default () => {
   const root = document.body;
+  root.innerHTML = '';
   root.append(
     header,
     main,

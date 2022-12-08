@@ -2,6 +2,7 @@ import 'normalize-css/normalize.css';
 import './style.css';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, get } from 'firebase/database';
+import loading from './DOM-Elements/loading';
 import render from './functions/render';
 
 const firebaseConfig = {
@@ -18,4 +19,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
+document.body.append(loading);
 render();
