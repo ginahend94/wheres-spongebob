@@ -1,4 +1,3 @@
-// import { loaded } from '../functions/getData';
 import { controls } from './timer';
 import { getCharacters, getImages } from '../functions/characters';
 
@@ -17,26 +16,22 @@ const curtain = (() => {
   const characters = getCharacters();
   const images = getImages();
   characters.forEach((character) => characterContainer.append(
-    images[images.findIndex((img) => img.dataset.character.toLowerCase() === character.id)]
+    images[
+      images.findIndex(
+        (img) => img.dataset.character.toLowerCase() === character.id
+      )
+    ]
   ));
 
   start.textContent = 'Start';
   start.addEventListener('click', controls.start);
-  const fillCurtain = () => {
-    cont.innerHTML = '';
-    cont.append(
-      h2,
-      h3,
-      characterContainer,
-      start,
-    );
-  };
-  // loaded().then(() => fillCurtain());
-  fillCurtain();
-  return {
-    cont,
-    fillCurtain,
-  };
+  cont.append(
+    h2,
+    h3,
+    characterContainer,
+    start,
+  );
+  return cont;
 })();
 
 export default curtain;
