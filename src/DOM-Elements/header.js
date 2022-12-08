@@ -16,7 +16,9 @@ const header = (() => {
       img.setAttribute('data-found', match.found);
     });
     list.forEach((character) => {
-      characterContainer.append(images.find((a) => a.classList.contains(character.id)));
+      characterContainer.append(
+        images.find((a) => a.classList.contains(character.id)).cloneNode(true)
+      );
     });
   };
   updateCharacterImgs(getCharacters());

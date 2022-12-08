@@ -17,10 +17,7 @@ const populateList = (list) => {
   const ul = popup.querySelector('ul');
   ul.textContent = '';
   list.forEach((character) => {
-    if (character.found) {
-      console.log(character.found);
-      return;
-    }
+    if (character.found) return;
     const item = document.createElement('li');
     item.textContent = character.name;
     item.dataset.character = character.id;
@@ -75,4 +72,5 @@ const selectCharacter = async (e) => {
 
 // const populateList = (list) => popup.populateList(list);
 
-export { popup, selectCharacter, populateList };
+export default popup;
+export { selectCharacter, populateList };
