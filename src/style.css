@@ -290,14 +290,16 @@ main img {
 
 .toast {
   position: fixed;
-  bottom: -50px;
+  bottom: -100px;
   padding: 10px;
+  padding-right: 40px;
   border-radius: 5px;
   color: white;
-  max-width: 30ch;
+  max-width: calc(30ch + 40px);
   text-align: center;
   box-shadow: 2px 2px 3px rgba(var(--rgb-black),.5);
   transition: .2s;
+  white-space: pre-line;
 }
 .toast.show {
   bottom: 10px;
@@ -307,6 +309,32 @@ main img {
 }
 .toast.green {
   background-color: var(--green);
+}
+.toast span {
+  display: block;
+  position: absolute;
+  top:50%;
+  /* transform: translateY(-50%); */
+   /* translateX(-50%); */
+  right:0;
+  top:0;
+  opacity: .7;
+  border-left:solid 1px rgba(0,0,0,.2);
+  height:100%;
+  width:30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  cursor: pointer;
+  transition: .2s;
+}
+.toast span:hover {
+  opacity: .8;
+  background-color: rgba(255,255,255,.08);
+}
+.toast span:active {
+  background-color: rgba(0,0,0,.1);
 }
 
 footer {
