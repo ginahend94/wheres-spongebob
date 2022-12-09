@@ -18,5 +18,19 @@
       "y1": 982,
       "y2": 1012
     }
-  }
+  },
+  "scores": [
+    {
+      "name": "David",
+      "score": 1000
+    },
+    {
+      "name": "Joseph",
+      "score": 990
+    },
+    {
+      "name": "Gina",
+      "score": 850
+    }
+  ]
 }
