@@ -1,4 +1,4 @@
-// import { characters as chars } from '../firebase';
+import { getChars } from '../firebase';
 import { selectCharacter } from '../DOM-Elements/popup';
 import showToast from '../DOM-Elements/toast';
 import { getCharacters, markAsFound } from './characters';
@@ -45,7 +45,7 @@ const makeSelection = async (e) => {
     // Compare location to input
     const {
       x1, y1, x2, y2
-    } = getCharacters()[character.id];
+    } = await getChars()[character.id];
     // If input is within bounds, show success
     if (pageX > x1 && pageX < x2 && pageY > y1 && pageY < y2) {
       // show success
