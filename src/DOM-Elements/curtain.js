@@ -1,6 +1,8 @@
 import { getCharacters, getImages } from '../functions/characters';
+import '../functions/scores';
 import badWords from '../assets/badWords.json';
 
+// TODO - finish styling
 const curtain = (() => {
   // create curtain
   const cont = document.createElement('div');

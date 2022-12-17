@@ -1,12 +1,22 @@
-import data from './getData';
+import { onValue, ref, push } from 'firebase/database';
+import { db } from '../firebase';
 
-const highScoreList = data.scores;
+let highScoreList;
+const scoreRef = ref(db, 'scores');
+const getInitialScores = (async () => new Promise((resolve) => {
+  onValue(scoreRef, (snap) => {
+    const data = snap.val();
+    highScoreList = data;
+    resolve(data);
+  });
+}));
+await getInitialScores();
 const getHighScoreList = () => highScoreList;
-const updateHighScoreList = (newList) => {
-
-}
+const addScore = (name, score) => push(scoreRef, { name, score });
+// addScore('Milo', 30000); // TEST
+console.log(getHighScoreList());
 const formatScore = (milliseconds) => {
   console.log(milliseconds);
 };
 
-export { getHighScoreList, updateHighScoreList, formatScore };
+export { getHighScoreList, formatScore };
