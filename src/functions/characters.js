@@ -1,4 +1,4 @@
-import data from './getData';
+import { getChars } from '../firebase';
 
 const images = (() => {
   const characterSrcs = (() => {
@@ -32,18 +32,22 @@ const images = (() => {
   return imgs;
 })();
 
+const chars = await getChars();
+
 const characters = [];
-Object.keys(data.characters).forEach((character) => {
-  const name = character
-    .split('-')
-    .map((word) => word[0].toUpperCase() + word.slice(1))
-    .join(' ');
-  characters.push({
-    name,
-    id: character,
-    found: false,
+(async () => {
+  Object.keys(chars).forEach((character) => {
+    const name = character
+      .split('-')
+      .map((word) => word[0].toUpperCase() + word.slice(1))
+      .join(' ');
+    characters.push({
+      name,
+      id: character,
+      found: false,
+    });
   });
-});
+})();
 const getCharacters = () => characters;
 const getImages = () => images;
 const markAsFound = (character) => {
