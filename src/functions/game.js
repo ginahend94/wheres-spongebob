@@ -42,10 +42,11 @@ const makeSelection = async (e) => {
     // Click character name
     const character = await selectCharacter(e);
     // Get character location
+    const charData = await getChars();
     // Compare location to input
     const {
       x1, y1, x2, y2
-    } = await getChars()[character.id];
+    } = charData[character.id];
     // If input is within bounds, show success
     if (pageX > x1 && pageX < x2 && pageY > y1 && pageY < y2) {
       // show success
