@@ -19,8 +19,8 @@ async function getData() {
   // eslint-disable-next-line no-promise-executor-return
   return new Promise((resolve) => setTimeout(async () => {
     try {
-      const url =
-      'https://raw.githubusercontent.com/ginahend94/wheres-spongebob/main/src/test.json';
+      const url = 'https://my-json-server.typicode.com/ginahend94/wheres-spongebob';
+      // 'https://raw.githubusercontent.com/ginahend94/wheres-spongebob/main/src/test.json';
       const res = await fetch(url);
       if (!res.ok) {
         showToast('red', `Server Error ${res.status}: ${res.statusText}. \n\rPlease refresh or try again later.`);
@@ -32,7 +32,7 @@ async function getData() {
       showToast('red', 'Error');
       resolve(e);
     }
-  }, 3000));
+  }, 1000));
 }
 document.body.append(loading);
 const data = await getData();

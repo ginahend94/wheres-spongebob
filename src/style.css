@@ -337,6 +337,10 @@ main img {
   background-color: rgba(0,0,0,.1);
 }
 
+.enter-name small {
+  display: none;
+}
+
 footer {
   width: min(1000px, 100%);
 }
