@@ -3,7 +3,6 @@ import {
   getDatabase,
   ref,
   onValue,
-  push,
 } from 'firebase/database';
 
 const firebaseConfig = {
