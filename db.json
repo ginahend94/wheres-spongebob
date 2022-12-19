@@ -15,22 +15,22 @@
     "old-man-walker": {
       "x1": 499,
       "x2": 540,
-      "y1": 982,
+      "y1": 966,
       "y2": 1012
     }
   },
   "scores": [
     {
       "name": "David",
-      "score": 1000
+      "score": 30000
     },
     {
       "name": "Joseph",
-      "score": 990
+      "score": 120000
     },
     {
       "name": "Gina",
-      "score": 850
+      "score": 240000
     }
   ]
 }
