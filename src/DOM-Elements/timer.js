@@ -73,6 +73,7 @@ const controls = (() => {
   };
 })();
 
+// TEST
 const startBtn = (() => {
   const btn = document.createElement('button');
   btn.textContent = 'start';

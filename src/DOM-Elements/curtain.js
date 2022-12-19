@@ -1,6 +1,6 @@
 import { getCharacters, getImages } from '../functions/characters';
-import '../functions/scores';
 import badWords from '../assets/badWords.json';
+import { addScore, getHighScoreTable } from '../functions/scores';
 
 // TODO - finish styling
 const curtain = (() => {
@@ -35,13 +35,11 @@ const curtain = (() => {
       cont.append(h2, h3, characterContainer, start);
     };
     return {
-      cont,
       start,
       init,
     };
   })();
-  // press start
-  // game ends
+
   // fill with postgame
   const postGame = (() => {
     const gameResults = document.createElement('div');
@@ -49,16 +47,19 @@ const curtain = (() => {
     const congrats = document.createElement('h2');
     congrats.textContent = 'Congrats, you won!';
     const yourScore = document.createElement('h3');
-    const setScore = (score) => (
-      yourScore.textContent = `Your score: ${score}`
-    );
+    const setScore = (score) => (yourScore.textContent = `Your score: ${score}`);
 
     const highFlag = document.createElement('span');
     highFlag.classList.add('high-score-flag');
     highFlag.textContent = 'High score!';
     const showFlag = () => yourScore.append(highFlag);
 
+    const playAgain = document.createElement('button');
+    playAgain.textContent = 'Play Again';
+
     const enterName = (() => {
+      let score = 0;
+
       const form = document.createElement('form');
       form.classList.add('enter-name');
 
@@ -77,7 +78,9 @@ const curtain = (() => {
 
       const submit = document.createElement('button');
       submit.textContent = 'Submit';
-      form.append(small, label, submit);
+      const cancel = document.createElement('button');
+      cancel.textContent = 'Cancel';
+      form.append(small, label, submit, cancel);
 
       const isValid = () => {
         // grab value from input
@@ -95,42 +98,57 @@ const curtain = (() => {
           hideSmall();
         }
       };
-      const validateInput = () => {
+      const validateInput = (e) => new Promise((resolve) => {
         // if invalid
         if (!isValid) {
           // show small
           showSmall();
           // add eventlistener to input
           field.addEventListener('input', continuousCheck);
-        } else {
-          // if valid
+        } else { // if valid
           // send name and score to high score list
-          // hide small
+          addScore(e.target.value, score);
+          // hide small if showing
           hideSmall();
           // remove eventlistener
           field.removeEventListener('input', continuousCheck);
+          resolve(e.target.value);
         }
-      };
-
-      submit.addEventListener('click', (e) => {
-        // prevent page redirect
-        e.preventDefault();
-        // validate input
       });
 
-      // return new promise
-      // submit button clicked, validate entry
-      // if valid, resolve with entry
-      // cancel button clicked, resolve empty
-      // if there is a name, create obj with name and score
+      const display = (playerScore) => {
+        score = playerScore;
+        // show form
+        form.style.display = 'flex';
+        // return new promise
+        return new Promise((resolve) => {
+          // submit button clicked, validate entry
+          submit.addEventListener('click', async (e) => {
+            // prevent page redirect
+            e.preventDefault();
+            // validate input
+            const name = await validateInput(e);
+            // if valid, create obj with name and score and resolve with entry
+            if (name) {
+              form.style.display = 'none';
+              resolve({ name, score });
+            }
+          });
+          // cancel button clicked, resolve empty
+          cancel.addEventListener('click', (e) => {
+            e.preventDefault();
+            form.style.display = 'none';
+            resolve();
+          });
+        });
+      };
+
+      return { display };
     })();
 
-    gameResults.append(
-      congrats,
-      yourScore,
-    );
+    gameResults.append(congrats, yourScore);
 
-    const init = (score, isHigh) => {
+    const init = async (score, isHigh) => {
       cont.innerHTML = '';
       setScore(score);
       cont.append(gameResults);
@@ -138,69 +156,38 @@ const curtain = (() => {
       if (isHigh) {
         // show high score flag
         showFlag();
-        // open enter name popup
+        // open enter name box
+        await enterName.display(score);
       }
       // show top scores
+      cont.append(getHighScoreTable());
+      // show replay button
+      cont.append(playAgain);
+    };
+
+    return {
+      init,
+      playAgain
     };
   })();
 
-  const enterName = (() => {
-    const form = document.createElement('form');
-    form.classList.add('enter-name');
-    const small = document.createElement('small');
-    small.textContent = 'Invalid input';
-    const showSmall = () => (small.style.display = 'block');
-    const hideSmall = () => (small.style.display = 'none');
-    const label = document.createElement('label');
-    label.textContent = 'Enter your initials:';
-    const field = document.createElement('input');
-    field.maxLength = 3;
-    field.minLength = 2;
-    field.name = 'initials';
-    label.append(field);
-    const submit = document.createElement('button');
-    submit.textContent = 'Submit';
-    form.append(small, label, submit);
-
-    const isValid = () => {
-      const input = field.value;
-      if (input.trim().length > 3 || input.trim().length < 2) return false;
-      return !badWords.includes(input);
-    };
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (!isValid()) {
-        showSmall();
-      } else {
-        hideSmall();
-        // Save high score
-      }
-    });
-    return form;
-  })();
-  const gameWin = async (score, isHigh) => {
-    const gameResults = document.createElement('div');
-    gameResults.classList.add('game-results');
-    const congrats = document.createElement('h2');
-    congrats.textContent = 'Congrats, you won!';
-    const yourScore = document.createElement('h3');
-    yourScore.textContent = `Your score: ${score}`;
-    const highFlag = document.createElement('span');
-    highFlag.classList.add('high-score-flag');
-    highFlag.textContent = 'High score!';
-    gameResults.append(
-      congrats,
-      yourScore,
-      isHigh ? highFlag : '',
-      isHigh ? enterName : ''
-    );
-    cont.append(gameResults);
+  const remove = () => {
+    document.body.removeChild(cont);
   };
-  gameWin(300, true);
+
+  const display = () => {
+    document.body.append(cont);
+  };
+
   return {
-    cont,
-    // start,
+    preGame,
+    startButton: preGame.start,
+    postGame,
+    replayButton: postGame.playAgain,
+    remove,
+    display,
+    container: cont,
   };
 })();
 
-export default curtain.cont;
+export default curtain;

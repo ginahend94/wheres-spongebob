@@ -55,5 +55,13 @@ const markAsFound = (character) => {
     characters[characters.findIndex((char) => char.id === character)];
   target.found = true;
 };
+const resetCharacters = () => {
+  characters.forEach((character) => (character.found = false));
+};
 
-export { getCharacters, getImages, markAsFound };
+export {
+  getCharacters,
+  getImages,
+  markAsFound,
+  resetCharacters,
+};

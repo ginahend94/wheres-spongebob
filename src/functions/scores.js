@@ -12,9 +12,15 @@ const getInitialScores = async () => new Promise((resolve) => {
 });
 await getInitialScores();
 const getHighScoreList = () => highScoreList;
-const addScore = (name, score) => push(scoreRef, { name, score });
-// addScore('Milo', 30000); // TEST
-console.log(getHighScoreList()); // TEST
+const highScoreArray = [];
+Object.keys(highScoreList).forEach((key) => {
+  // create array from list
+  highScoreArray.push({
+    name: highScoreList[key].name,
+    score: highScoreList[key].score,
+  });
+});
+const isHigh = (score) => highScoreArray.some((current) => score < current.score);
 
 const formatScore = (milliseconds) => {
   const decimalPlaces = (num, places) => {
@@ -59,12 +65,15 @@ const formatScore = (milliseconds) => {
   // whole number is hours
   const hrs = wholeHrs;
 
+  const formattedTime = `${hrs.toString().padStart(2, '0')}:${mm.toString().padStart(2, '0')}:${ss.toString().padStart(2, '0')}.${cs.toString().padStart(2, '0')}`;
+
   return {
     milliseconds,
     cs,
     ss,
     mm,
     hrs,
+    formattedTime,
     csString: cs.toString().padStart(2, '0'),
     ssString: ss.toString().padStart(2, '0'),
     mmString: mm.toString().padStart(2, '0'),
@@ -73,4 +82,49 @@ const formatScore = (milliseconds) => {
   };
 };
 
-export { getHighScoreList, formatScore };
+const getHighScoreTable = (() => {
+  const table = document.createElement('table');
+  table.classList.add('high-score-table');
+  const header = document.createElement('thead');
+  const body = document.createElement('tbody');
+  header.innerHTML = `
+    <td></td>
+    <td>Name</td>
+    <td>Score</td>
+  `;
+  table.append(header, body);
+
+  const fillTable = () => {
+    // sort players in ascending order of score
+    highScoreArray.sort((a, b) => a.score - b.score)
+      .forEach((entry, i) => {
+        // create rows for each entry
+        body.innerHTML += `
+        <tr>
+          <td>${i + 1}.</td>
+          <td>${entry.name}</td>
+          <td>${formatScore(entry.score).formattedTime}</td>
+        </tr>
+      `;
+      });
+  };
+
+  const getTable = () => {
+    fillTable();
+    return table;
+  };
+
+  return getTable;
+})();
+
+const addScore = (name, score) => push(scoreRef, { name, score });
+// addScore('Milo', 30000); // TEST
+console.log(getHighScoreList()); // TEST
+
+export {
+  getHighScoreList,
+  formatScore,
+  addScore,
+  getHighScoreTable,
+  isHigh,
+};

@@ -1,10 +1,11 @@
 import { getChars } from '../firebase';
 import { selectCharacter } from '../DOM-Elements/popup';
 import showToast from '../DOM-Elements/toast';
-import { getCharacters, markAsFound } from './characters';
+import { getCharacters, markAsFound, resetCharacters } from './characters';
 import { addCharacterImgs } from '../DOM-Elements/header';
 import { controls } from '../DOM-Elements/timer';
 import curtain from '../DOM-Elements/curtain';
+import { isHigh } from './scores';
 
 let isSelecting = false;
 const getIsSelecting = () => isSelecting;
@@ -12,24 +13,31 @@ const setIsSelecting = (bool) => (isSelecting = bool);
 
 const startGame = () => {
   // Remove curtain
-  document.body.removeChild(curtain);
+  curtain.remove();
   // Start timer
   controls.start();
 };
-const curtainButton = curtain.querySelector('button');
-curtainButton.addEventListener('click', startGame);
+curtain.startButton.addEventListener('click', startGame);
+
 const endGame = () => {
   // End game
   const score = controls.stop();
   // Draw curtain
-  document.append(curtain);
-  // Show score
-  alert(`you won! your time was ${score.mm}:${score.ss}.${score.ms}!`);
-  // Check for high score
-  // If score is high, allow name entrance
-  // show high score chart
-  // Show play again button
+  curtain.display();
+  // Show postgame
+  curtain.postGame.init(score, isHigh(score));
 };
+
+const resetGame = () => {
+  // fill with pregame
+  curtain.preGame.init();
+  // reset timer
+  controls.reset();
+  // set all characters to not found
+  resetCharacters();
+};
+curtain.replayButton.addEventListener('click', resetGame);
+
 const gameWon = () => getCharacters().every((character) => character.found);
 
 const makeSelection = async (e) => {

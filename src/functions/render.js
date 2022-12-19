@@ -14,7 +14,8 @@ export default () => {
     main,
     footer,
     popup,
-    curtain,
+    curtain.container,
   );
+  curtain.preGame.init();
   main.addEventListener('click', makeSelection);
 };

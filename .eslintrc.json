@@ -16,6 +16,7 @@
     "no-return-assign": ["error", "except-parens"],
     "operator-linebreak":"off",
     "consistent-return":"warn",
-    "comma-dangle":"off"
+    "comma-dangle":"off",
+    "no-param-reassign": ["error", {"props": false}]
   }
 }
