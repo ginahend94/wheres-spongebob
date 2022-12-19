@@ -20,7 +20,10 @@ Object.keys(highScoreList).forEach((key) => {
     score: highScoreList[key].score,
   });
 });
-const isHigh = (score) => highScoreArray.some((current) => score < current.score);
+const isHigh = (score) => {
+  if (highScoreArray.length < 10) return true;
+  return highScoreArray.some((current) => score < current.score);
+};
 
 const formatScore = (milliseconds) => {
   const decimalPlaces = (num, places) => {
