@@ -55,39 +55,18 @@ const timer = (() => {
 })();
 
 const controls = (() => {
-  const startGame = () => {
-    timer.start();
-  };
+  const startGame = () => timer.start();
 
-  const stopGame = () => {
-    timer.stop();
-  };
+  const stopGame = () => timer.stop();
 
-  const resetGame = () => {
-    timer.reset();
-  };
+  const resetGame = () => timer.reset();
+
   return {
     start: startGame,
     stop: stopGame,
     reset: resetGame,
   };
 })();
-
-// TEST
-const startBtn = (() => {
-  const btn = document.createElement('button');
-  btn.textContent = 'start';
-  btn.addEventListener('click', timer.start);
-  return btn;
-})();
-const stopBtn = (() => {
-  const btn = document.createElement('button');
-  btn.textContent = 'stop';
-  btn.addEventListener('click', timer.stop);
-  return btn;
-})();
-
-timer.container.append(startBtn, stopBtn);
 
 export default timer;
 export { controls };
