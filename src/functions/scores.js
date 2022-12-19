@@ -24,16 +24,23 @@ const formatScore = (milliseconds) => {
     return parseFloat(`${wholeNum}.${newDecimal}`);
   };
 
-  const MS_IN_SEC = 1000;
+  const MS_IN_CS = 10;
+  const CS_IN_SEC = 100;
   const SECS_IN_MIN = 60;
   const MINS_IN_HOUR = 60;
-  // FIND MS
-  // divide ms by 1000 to convert ms to s
-  const floatSecs = milliseconds / MS_IN_SEC;
+
+  // CONVERT MS TO CS
+  // divide ms by 10 to convert ms to cs
+  const floatCS = milliseconds / MS_IN_CS;
+  // take whole number
+  const wholeCS = parseInt(floatCS, 10);
+  // FIND CS
+  // divide whole number by 100 to convert cs to s
+  const floatSecs = wholeCS / CS_IN_SEC;
   // subtract whole number
   const wholeSecs = parseInt(floatSecs, 10);
-  // convert decimal back to ms
-  const ms = Math.round((floatSecs - wholeSecs) * MS_IN_SEC);
+  // convert decimal back to cs
+  const cs = Math.round((floatSecs - wholeSecs) * CS_IN_SEC);
   // FIND SECS
   // divide whole number by 60 to convert s to m
   const floatMins = wholeSecs / SECS_IN_MIN;
@@ -54,11 +61,11 @@ const formatScore = (milliseconds) => {
 
   return {
     milliseconds,
-    ms,
+    cs,
     ss,
     mm,
     hrs,
-    msString: ms.toString().padStart(2, '0'),
+    csString: cs.toString().padStart(2, '0'),
     ssString: ss.toString().padStart(2, '0'),
     mmString: mm.toString().padStart(2, '0'),
     hrsString: hrs.toString().padStart(2, '0'),

@@ -1,89 +1,28 @@
 import { formatScore } from '../functions/scores';
 
-// const timer = (() => {
-//   const container = document.createElement('div');
-//   container.classList.add('timer');
-//   const mm = document.createElement('span');
-//   const ss = document.createElement('span');
-//   const ms = document.createElement('span');
-//   container.append(mm, ':', ss, '.', ms);
-
-//   const setTimeDisplay = (mmTime, ssTime, msTime) => {
-//     mm.textContent = mmTime.toString().padStart(2, '0');
-//     ss.textContent = ssTime.toString().padStart(2, '0');
-//     ms.textContent = parseInt(msTime, 10).toString().padStart(2, '0');
-//   };
-
-//   setTimeDisplay('00', '00', '0');
-
-//   let int;
-
-//   let mmTime = 0;
-//   let ssTime = 0;
-//   let msTime = 0;
-
-//   const start = () => {
-//     int = setInterval(() => {
-//       msTime += 1;
-//       if (msTime >= 100) {
-//         ssTime += 1;
-//         msTime = 0;
-//       }
-//       if (ssTime >= 60) {
-//         mmTime += 1;
-//         ssTime = 0;
-//       }
-//       setTimeDisplay(mmTime, ssTime, msTime);
-//     }, 1);
-//   };
-
-//   const resetTimer = () => {
-//     clearInterval(int);
-//     int = null;
-//     setTimeDisplay('00', '00', '00');
-//   };
-
-//   const stopTimer = () => {
-//     clearInterval(int);
-//     return {
-//       mm: mmTime,
-//       ss: ssTime,
-//       ms: msTime,
-//     };
-//   };
-
-//   return {
-//     container,
-//     start,
-//     reset: resetTimer,
-//     stop: stopTimer,
-//   };
-// })();
-
-// TEST
-
 const timer = (() => {
   const container = document.createElement('div');
   container.classList.add('timer');
   const hrs = document.createElement('span');
   const mm = document.createElement('span');
   const ss = document.createElement('span');
-  const ms = document.createElement('span');
-  container.append(hrs, ':', mm, ':', ss, '.', ms);
+  const cs = document.createElement('span');
+  container.append(hrs, ':', mm, ':', ss, '.', cs);
 
-  const setTimeDisplay = (hrTime, mmTime, ssTime, msTime) => {
+  const setTimeDisplay = (hrTime = 0, mmTime = 0, ssTime = 0, csTime = 0) => {
     hrs.textContent = hrTime.toString().padStart(2, '0');
     mm.textContent = mmTime.toString().padStart(2, '0');
     ss.textContent = ssTime.toString().padStart(2, '0');
-    ms.textContent = parseInt(msTime, 10).toString().padStart(3, '0');
+    cs.textContent = csTime.toString().padStart(2, '0');
   };
 
-  setTimeDisplay(0, 0, 0, 0);
+  setTimeDisplay();
 
   let int;
 
   let startTime = 0;
   let currentTime = 0;
+  let elapsedTime = 0;
 
   const checkCurrentTime = () => (currentTime = Date.now());
 
@@ -91,28 +30,26 @@ const timer = (() => {
     if (!startTime) startTime = Date.now();
     int = setInterval(() => {
       checkCurrentTime();
-      const elapsedTime = currentTime - startTime;
+      elapsedTime = currentTime - startTime;
       const time = formatScore(elapsedTime);
-      setTimeDisplay(time.hrs, time.mm, time.ss, time.ms);
-    }, 1);
+      setTimeDisplay(time.hrs, time.mm, time.ss, time.cs);
+    }, 10);
   };
 
-  const resetTimer = () => {
+  const stop = () => {
     clearInterval(int);
-    int = null;
-    setTimeDisplay('00', '00', '00');
+    return elapsedTime;
   };
 
-  const stopTimer = () => {
-    clearInterval(int);
-    return currentTime;
+  const reset = () => {
+    stop();
+    setTimeDisplay();
   };
 
   return {
     container,
     start,
-    reset: resetTimer,
-    stop: stopTimer,
+    stop,
   };
 })();
 
@@ -143,16 +80,16 @@ const controls = (() => {
 //   const stopTimer = () => (stopTime = Date.now());
 //   // const start = () => {
 //   //   int = setInterval(() => {
-//   //     msTime += 1;
-//   //     if (msTime >= 100) {
+//   //     csTime += 1;
+//   //     if (csTime >= 100) {
 //   //       ssTime += 1;
-//   //       msTime = 0;
+//   //       csTime = 0;
 //   //     }
 //   //     if (ssTime >= 60) {
 //   //       mmTime += 1;
 //   //       ssTime = 0;
 //   //     }
-//   //     setTimeDisplay(mmTime, ssTime, msTime);
+//   //     setTimeDisplay(mmTime, ssTime, csTime);
 //   //   }, 1);
 //   // }
 // })();
