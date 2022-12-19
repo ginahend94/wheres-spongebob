@@ -50,6 +50,7 @@ const timer = (() => {
     container,
     start,
     stop,
+    reset,
   };
 })();
 
@@ -58,7 +59,9 @@ const controls = (() => {
     timer.start();
   };
 
-  const stopGame = () => timer.stop();
+  const stopGame = () => {
+    timer.stop();
+  };
 
   const resetGame = () => {
     timer.reset();
@@ -69,30 +72,6 @@ const controls = (() => {
     reset: resetGame,
   };
 })();
-
-// const controller = (() => {
-//   let startTime;
-//   let currentTime;
-//   let stopTime;
-//   let int;
-//   const startTimer = () => (startTime = Date.now());
-//   const checkCurrentTime = () => (currentTime = Date.now());
-//   const stopTimer = () => (stopTime = Date.now());
-//   // const start = () => {
-//   //   int = setInterval(() => {
-//   //     csTime += 1;
-//   //     if (csTime >= 100) {
-//   //       ssTime += 1;
-//   //       csTime = 0;
-//   //     }
-//   //     if (ssTime >= 60) {
-//   //       mmTime += 1;
-//   //       ssTime = 0;
-//   //     }
-//   //     setTimeDisplay(mmTime, ssTime, csTime);
-//   //   }, 1);
-//   // }
-// })();
 
 const startBtn = (() => {
   const btn = document.createElement('button');
