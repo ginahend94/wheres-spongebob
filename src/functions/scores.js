@@ -118,8 +118,6 @@ const getHighScoreTable = (() => {
 })();
 
 const addScore = (name, score) => push(scoreRef, { name, score });
-// addScore('Milo', 30000); // TEST
-console.log(getHighScoreList()); // TEST
 
 export {
   getHighScoreList,
