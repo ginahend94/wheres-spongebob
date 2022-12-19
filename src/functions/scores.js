@@ -3,51 +3,66 @@ import { db } from '../firebase';
 
 let highScoreList;
 const scoreRef = ref(db, 'scores');
-const getInitialScores = async () =>
-  new Promise((resolve) => {
-    onValue(scoreRef, (snap) => {
-      const data = snap.val();
-      highScoreList = data;
-      resolve(data);
-    });
+const getInitialScores = async () => new Promise((resolve) => {
+  onValue(scoreRef, (snap) => {
+    const data = snap.val();
+    highScoreList = data;
+    resolve(data);
   });
+});
 await getInitialScores();
 const getHighScoreList = () => highScoreList;
 const addScore = (name, score) => push(scoreRef, { name, score });
 // addScore('Milo', 30000); // TEST
-console.log(getHighScoreList());
-const formatScore = (val) => {
-  // TEST num: 68823456
+console.log(getHighScoreList()); // TEST
 
-  // milliseconds: mod value by 1000 (milliseconds in second)
-  const milliseconds = val % 1000;
-  // seconds: divide milliseconds by 60 (secs in min)
-  // take whole number,
-  // mod by 60 is secs
-  const seconds = parseInt(val / 60, 10) % 60;
-  // minutes: divide milliseconds by 3600 (mins in hour)
-  // take whole num
-  // mod by 60 is mins
-  const minutes = parseInt(val / 3600, 10) % 60; // secs in hour
-  // hours: divide milliseconds by 216000
-  // take whole num
-  // result is hours
-  const hours = parseInt(val / 216000, 10);
+const formatScore = (milliseconds) => {
+  const decimalPlaces = (num, places) => {
+    const wholeNum = parseInt(num, 10);
+    const decimal = num - wholeNum;
+    const newDecimal = parseInt(decimal * (10 ** places), 10);
+    return parseFloat(`${wholeNum}.${newDecimal}`);
+  };
 
-  const msString = milliseconds.toString().padStart(2, '0');
-  const ssString = seconds.toString().padStart(2, '0');
-  const mmString = minutes.toString().padStart(2, '0');
-  const hhString = hours.toString().padStart(2, '0');
+  const MS_IN_SEC = 1000;
+  const SECS_IN_MIN = 60;
+  const MINS_IN_HOUR = 60;
+  // FIND MS
+  // divide ms by 1000 to convert ms to s
+  const floatSecs = milliseconds / MS_IN_SEC;
+  // subtract whole number
+  const wholeSecs = parseInt(floatSecs, 10);
+  // convert decimal back to ms
+  const ms = Math.round((floatSecs - wholeSecs) * MS_IN_SEC);
+  // FIND SECS
+  // divide whole number by 60 to convert s to m
+  const floatMins = wholeSecs / SECS_IN_MIN;
+  // subtract whole number
+  const wholeMins = parseInt(floatMins, 10);
+  // multiply decimal by 60 to convert back to s
+  const ss = Math.round((floatMins - wholeMins) * SECS_IN_MIN);
+  // FIND MINS
+  // divide whole number by 60 to convert s to m
+  const floatHrs = wholeMins / MINS_IN_HOUR;
+  // subtract whole number
+  const wholeHrs = parseInt(floatHrs, 10);
+  // multiply decimal by 60 to convert back to m
+  const mm = Math.round((floatHrs - wholeHrs) * MINS_IN_HOUR);
+  // FIND HRS
+  // whole number is hours
+  const hrs = wholeHrs;
 
   return {
     milliseconds,
-    seconds,
-    minutes,
-    hours,
-    msString,
-    ssString,
-    mmString,
-    hhString,
+    ms,
+    ss,
+    mm,
+    hrs,
+    msString: ms.toString().padStart(2, '0'),
+    ssString: ss.toString().padStart(2, '0'),
+    mmString: mm.toString().padStart(2, '0'),
+    hrsString: hrs.toString().padStart(2, '0'),
+    formattedSecs: decimalPlaces(floatSecs, 2),
   };
 };
 

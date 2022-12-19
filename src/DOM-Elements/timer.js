@@ -65,28 +65,25 @@ import { formatScore } from '../functions/scores';
 const timer = (() => {
   const container = document.createElement('div');
   container.classList.add('timer');
+  const hrs = document.createElement('span');
   const mm = document.createElement('span');
   const ss = document.createElement('span');
   const ms = document.createElement('span');
-  container.append(mm, ':', ss, '.', ms);
+  container.append(hrs, ':', mm, ':', ss, '.', ms);
 
-  const setTimeDisplay = (mmTime, ssTime, msTime) => {
+  const setTimeDisplay = (hrTime, mmTime, ssTime, msTime) => {
+    hrs.textContent = hrTime.toString().padStart(2, '0');
     mm.textContent = mmTime.toString().padStart(2, '0');
     ss.textContent = ssTime.toString().padStart(2, '0');
-    ms.textContent = parseInt(msTime, 10).toString().padStart(2, '0');
+    ms.textContent = parseInt(msTime, 10).toString().padStart(3, '0');
   };
 
-  setTimeDisplay('00', '00', '0');
+  setTimeDisplay(0, 0, 0, 0);
 
   let int;
 
-  let mmTime = 0;
-  let ssTime = 0;
-  let msTime = 0;
   let startTime = 0;
   let currentTime = 0;
-  let stopTime = 0;
-  let running = false;
 
   const checkCurrentTime = () => (currentTime = Date.now());
 
@@ -95,19 +92,9 @@ const timer = (() => {
     int = setInterval(() => {
       checkCurrentTime();
       const elapsedTime = currentTime - startTime;
-      formatScore(elapsedTime);
-      setTimeDisplay(elapsedTime);
-      // msTime += 1;
-      // if (msTime >= 100) {
-      //   ssTime += 1;
-      //   msTime = 0;
-      // }
-      // if (ssTime >= 60) {
-      //   mmTime += 1;
-      //   ssTime = 0;
-      // }
-      setTimeDisplay(mmTime, ssTime, msTime);
-    }, 1000);
+      const time = formatScore(elapsedTime);
+      setTimeDisplay(time.hrs, time.mm, time.ss, time.ms);
+    }, 1);
   };
 
   const resetTimer = () => {
@@ -117,13 +104,8 @@ const timer = (() => {
   };
 
   const stopTimer = () => {
-    running = false;
     clearInterval(int);
-    return {
-      mm: mmTime,
-      ss: ssTime,
-      ms: msTime,
-    };
+    return currentTime;
   };
 
   return {
