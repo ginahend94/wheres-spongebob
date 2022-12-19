@@ -16,6 +16,7 @@ export default () => {
     popup,
     curtain.container,
   );
-  curtain.preGame.init();
+  // curtain.preGame.init(); // TEST
+  curtain.postGame.init(92497, true);
   main.addEventListener('click', makeSelection);
 };
