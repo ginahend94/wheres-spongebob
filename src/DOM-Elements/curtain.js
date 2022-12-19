@@ -1,6 +1,6 @@
 import { getCharacters, getImages } from '../functions/characters';
 import badWords from '../assets/badWords.json';
-import { addScore, getHighScoreTable } from '../functions/scores';
+import { addScore, formatScore, getHighScoreTable } from '../functions/scores';
 
 // TODO - finish styling
 const curtain = (() => {
@@ -17,6 +17,7 @@ const curtain = (() => {
 
     h2.textContent = 'Where\'s SpongeBob?';
     h3.textContent = 'FIND:';
+    start.textContent = 'Start';
     characterContainer.classList.add('character-container');
 
     const characters = getCharacters();
@@ -29,11 +30,11 @@ const curtain = (() => {
       ]
     ));
 
-    start.textContent = 'Start';
     const init = () => {
       cont.innerHTML = '';
       cont.append(h2, h3, characterContainer, start);
     };
+
     return {
       start,
       init,
@@ -47,7 +48,7 @@ const curtain = (() => {
     const congrats = document.createElement('h2');
     congrats.textContent = 'Congrats, you won!';
     const yourScore = document.createElement('h3');
-    const setScore = (score) => (yourScore.textContent = `Your score: ${score}`);
+    const setScore = (score) => (yourScore.textContent = `Your score: ${formatScore(score).formattedTime}`);
 
     const highFlag = document.createElement('span');
     highFlag.classList.add('high-score-flag');
@@ -143,10 +144,13 @@ const curtain = (() => {
         });
       };
 
-      return { display };
+      return {
+        display,
+        form,
+      };
     })();
 
-    gameResults.append(congrats, yourScore);
+    gameResults.append(congrats, yourScore, enterName.form);
 
     const init = async (score, isHigh) => {
       cont.innerHTML = '';
