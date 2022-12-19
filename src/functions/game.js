@@ -39,7 +39,7 @@ const resetGame = () => {
 curtain.replayButton.addEventListener('click', resetGame);
 
 const gameWon = () => getCharacters().every((character) => character.found);
-
+// TODO - add time b/n win and congrats screen
 const makeSelection = async (e) => {
   // Bubble stops following
   setIsSelecting(true);
