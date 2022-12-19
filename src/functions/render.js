@@ -14,7 +14,7 @@ export default () => {
     main,
     footer,
     popup,
-    // TEST curtain,
+    curtain,
   );
   main.addEventListener('click', makeSelection);
 };
