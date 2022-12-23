@@ -8,7 +8,6 @@ const getInitialScores = async () => new Promise((resolve) => {
   onValue(scoreRef, (snap) => {
     const data = snap.val();
     highScoreList = data;
-    console.log(highScoreList); // TEST
     resolve(data);
   });
 });
@@ -16,7 +15,7 @@ await getInitialScores();
 const getHighScoreList = () => highScoreList;
 // create array from list
 const highScoreArray = [];
-const generateHighScoreArray = () => {
+const updateHighScoreArray = () => {
   highScoreArray.length = 0;
   Object.keys(highScoreList).forEach((key) => {
     highScoreArray.push({
@@ -26,8 +25,7 @@ const generateHighScoreArray = () => {
   });
   return highScoreArray;
 };
-generateHighScoreArray();
-const getHighScoreArray = () => generateHighScoreArray();
+updateHighScoreArray();
 const isHigh = (score) => {
   if (highScoreArray.length < 10) return true;
   return highScoreArray.some((current) => score < current.score);
@@ -106,10 +104,10 @@ const getHighScoreTable = (() => {
   table.append(header, body);
 
   const fillTable = () => {
+    updateHighScoreArray();
     body.innerHTML = '';
     // sort players in ascending order of score
     highScoreArray.sort((a, b) => a.score - b.score);
-    console.log(getHighScoreArray());
     // only show top ten
     for (let i = 0; i < 10; i++) {
       if (i >= highScoreArray.length) return;
