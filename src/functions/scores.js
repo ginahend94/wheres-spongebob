@@ -16,12 +16,18 @@ await getInitialScores();
 const getHighScoreList = () => highScoreList;
 // create array from list
 const highScoreArray = [];
-Object.keys(highScoreList).forEach((key) => {
-  highScoreArray.push({
-    name: highScoreList[key].name,
-    score: highScoreList[key].score,
+const generateHighScoreArray = () => {
+  highScoreArray.length = 0;
+  Object.keys(highScoreList).forEach((key) => {
+    highScoreArray.push({
+      name: highScoreList[key].name,
+      score: highScoreList[key].score,
+    });
   });
-});
+  return highScoreArray;
+};
+generateHighScoreArray();
+const getHighScoreArray = () => generateHighScoreArray();
 const isHigh = (score) => {
   if (highScoreArray.length < 10) return true;
   return highScoreArray.some((current) => score < current.score);
@@ -103,19 +109,18 @@ const getHighScoreTable = (() => {
     body.innerHTML = '';
     // sort players in ascending order of score
     highScoreArray.sort((a, b) => a.score - b.score);
-    const arr = Object.keys(highScoreArray);
-    let i = 0;
+    console.log(getHighScoreArray());
     // only show top ten
-    while (i < 10) {
+    for (let i = 0; i < 10; i++) {
+      if (i >= highScoreArray.length) return;
       // create rows for each entry
       body.innerHTML += `
         <tr>
           <td>${i + 1}.</td>
-          <td>${highScoreArray[arr[i]].name}</td>
-          <td>${formatScore(highScoreArray[arr[i]].score).formattedTime}</td>
+          <td>${highScoreArray[i].name}</td>
+          <td>${formatScore(highScoreArray[i].score).formattedTime}</td>
         </tr>
       `;
-      i += 1;
     }
   };
 
