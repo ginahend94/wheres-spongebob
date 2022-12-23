@@ -1,20 +1,22 @@
-import { onValue, ref, push } from 'firebase/database';
+import { onValue, ref, set } from 'firebase/database';
 import { db } from '../firebase';
 
 let highScoreList;
 const scoreRef = ref(db, 'scores');
+const newScore = (endpoint) => ref(db, `scores/${endpoint}`);
 const getInitialScores = async () => new Promise((resolve) => {
   onValue(scoreRef, (snap) => {
     const data = snap.val();
     highScoreList = data;
+    console.log(highScoreList); // TEST
     resolve(data);
   });
 });
 await getInitialScores();
 const getHighScoreList = () => highScoreList;
+// create array from list
 const highScoreArray = [];
 Object.keys(highScoreList).forEach((key) => {
-  // create array from list
   highScoreArray.push({
     name: highScoreList[key].name,
     score: highScoreList[key].score,
@@ -98,18 +100,23 @@ const getHighScoreTable = (() => {
   table.append(header, body);
 
   const fillTable = () => {
+    body.innerHTML = '';
     // sort players in ascending order of score
-    highScoreArray.sort((a, b) => a.score - b.score)
-      .forEach((entry, i) => {
-        // create rows for each entry
-        body.innerHTML += `
+    highScoreArray.sort((a, b) => a.score - b.score);
+    const arr = Object.keys(highScoreArray);
+    let i = 0;
+    // only show top ten
+    while (i < 10) {
+      // create rows for each entry
+      body.innerHTML += `
         <tr>
           <td>${i + 1}.</td>
-          <td>${entry.name}</td>
-          <td>${formatScore(entry.score).formattedTime}</td>
+          <td>${highScoreArray[arr[i]].name}</td>
+          <td>${formatScore(highScoreArray[arr[i]].score).formattedTime}</td>
         </tr>
       `;
-      });
+      i += 1;
+    }
   };
 
   const getTable = () => {
@@ -119,8 +126,7 @@ const getHighScoreTable = (() => {
 
   return getTable;
 })();
-
-const addScore = (name, score) => push(scoreRef, { name, score });
+const addScore = (name, score) => set(newScore(highScoreArray.length), { name, score });
 
 export {
   getHighScoreList,

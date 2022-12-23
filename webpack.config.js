@@ -18,7 +18,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Where's SpongeBob?",
+      title: 'Where\'s SpongeBob?',
       favicon: './src/assets/images/favicon.ico',
     }),
   ],

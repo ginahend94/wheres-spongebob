@@ -99,21 +99,23 @@ const curtain = (() => {
           hideSmall();
         }
       };
-      const validateInput = (e) => new Promise((resolve) => {
+      const validateInput = () => new Promise((resolve) => {
         // if invalid
-        if (!isValid) {
+        if (!isValid()) {
           // show small
           showSmall();
           // add eventlistener to input
           field.addEventListener('input', continuousCheck);
         } else { // if valid
           // send name and score to high score list
-          addScore(e.target.value, score);
+          addScore(field.value, score);
+          // clear input
           // hide small if showing
           hideSmall();
           // remove eventlistener
           field.removeEventListener('input', continuousCheck);
-          resolve(e.target.value);
+          resolve(field.value);
+          field.value = '';
         }
       });
 
